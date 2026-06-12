@@ -13,7 +13,7 @@ type CategoryWithCount = {
 
 type Props = {
   products: Product[];
-  allCategories: { _id: string; name: string }[];
+  allCategories: { id: string; name: string }[];
 };
 
 const SORT_OPTIONS = [
@@ -27,7 +27,7 @@ const PRICE_MIN = 0;
 const PRICE_MAX = 5000000;
 
 function buildCategoryTree(
-  allCategories: { _id: string; name: string }[],
+  allCategories: { id: string; name: string }[],
   products: Product[]
 ): CategoryWithCount[] {
   const countMap: Record<string, number> = {};
@@ -115,7 +115,7 @@ export default function ShopClient({ products, allCategories }: Props) {
       case "price_asc":  result.sort((a, b) => a.price - b.price); break;
       case "price_desc": result.sort((a, b) => b.price - a.price); break;
       case "name_asc":   result.sort((a, b) => a.name.localeCompare(b.name)); break;
-      // newest → keep original order (most recent first from Sanity)
+      // newest → keep original order (most recent first)
     }
 
     return result;
@@ -321,7 +321,7 @@ export default function ShopClient({ products, allCategories }: Props) {
             ) : filteredProducts.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 sm:gap-x-6">
                 {filteredProducts.map((product) => (
-                  <ProductCard key={product._id} product={product} />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (

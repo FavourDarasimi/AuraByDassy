@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { Product } from "@/components/ProductCard";
 
@@ -38,7 +37,7 @@ function getColorHex(colorName: string): string {
 }
 
 export default function ShopProductCard({ product }: { product: Product }) {
-  const imageUrl = product.image ? urlFor(product.image)?.url() : null;
+  const imageUrl = product.image_url;
 
   const message = `Hello DassyLuxe, I want to order:\n\nProduct: ${product.name}\nPrice: ₦${product.price}\nProduct ID: ${product.sku}`.trim();
 

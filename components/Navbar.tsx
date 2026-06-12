@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import icon from "@/app/(main)/icon.png";
 
-type Category = { _id: string; name: string };
+type Category = { id: string; name: string };
 
 const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -96,7 +96,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
                 <div className="py-2" role="menu">
                   {categories.map((cat) => (
                     <Link
-                      key={cat._id}
+                      key={cat.id}
                       href={`/shop?category=${encodeURIComponent(cat.name)}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-black transition-colors"
                       role="menuitem"
@@ -226,7 +226,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
               <div className="flex flex-col items-center bg-gray-50 py-2 rounded-b-md">
                 {categories.map((cat) => (
                   <Link
-                    key={cat._id}
+                    key={cat.id}
                     href={`/shop?category=${encodeURIComponent(cat.name)}`}
                     onClick={() => {
                       setIsMobileMenuOpen(false);

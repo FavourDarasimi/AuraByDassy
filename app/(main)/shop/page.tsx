@@ -1,15 +1,7 @@
 import { Suspense } from "react";
-import { client } from "@/sanity/lib/client";
-import { Product } from "@/components/ProductCard";
+import { getProducts, getCategories, productCacheOptions, categoryCacheOptions } from "@/supabase/lib/queries";
+import { ProductWithCategory } from "@/supabase/lib/types";
 import ShopClient from "@/components/shop/ShopClient";
-
-const ALL_PRODUCTS_QUERY = `*[_type == "product" && available == true] | order(_createdAt desc) {
-  _id, name, price, image, category->{name}, sku, available
-}`;
-
-const ALL_CATEGORIES_QUERY = `*[_type == "category"] | order(name asc) { _id, name }`;
-
-const options = { next: { revalidate: 60 } };
 
 export const metadata = {
   title: "Shop – Dassy Luxe",
@@ -19,12 +11,8 @@ export const metadata = {
 
 async function ShopPage() {
   const [products, categories] = await Promise.all([
-    client.fetch<Product[]>(ALL_PRODUCTS_QUERY, {}, options),
-    client.fetch<{ _id: string; name: string }[]>(
-      ALL_CATEGORIES_QUERY,
-      {},
-      options
-    ),
+    getProducts({ availableOnly: true }),
+    getCategories(),
   ]);
 
   return (

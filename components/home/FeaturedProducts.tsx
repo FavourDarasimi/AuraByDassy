@@ -1,17 +1,10 @@
-import { client } from "@/sanity/lib/client";
-import ProductCard, { Product } from "@/components/ProductCard";
+import { getFeaturedProducts } from "@/supabase/lib/queries";
+import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-const FEATURED_PRODUCTS_QUERY = `*[ _type == "product" && available == true ]|order(_createdAt desc)[0...8]{_id, name, price, image, category->{name}, sku, available}`;
-const options = { next: { revalidate: 30 } };
-
 export default async function FeaturedProducts() {
-  const products: Product[] = await client.fetch<Product[]>(
-    FEATURED_PRODUCTS_QUERY,
-    {},
-    options
-  );
+  const products = await getFeaturedProducts();
 
   return (
     <section className="py-20 sm:py-28 bg-white">
@@ -40,7 +33,7 @@ export default async function FeaturedProducts() {
         {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8">
           {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
