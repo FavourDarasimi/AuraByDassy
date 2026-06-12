@@ -163,6 +163,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
                 }}
                 className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
                 style={{ zIndex: filters.priceMin > PRICE_MAX - 5000 ? 5 : 3 }}
+                aria-label="Minimum price"
               />
               {/* Max thumb */}
               <input
@@ -177,6 +178,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
                 }}
                 className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
                 style={{ zIndex: 4 }}
+                aria-label="Maximum price"
               />
               {/* Visual thumb min */}
               <div

@@ -2,9 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import icon from "@/app/(main)/icon.png";
+import Logo from "@/components/Logo";
 
 type Category = { id: string; name: string };
 
@@ -54,36 +53,26 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative flex items-center md:h-18 h-16">
+        <div className="relative flex items-center min-h-16 md:min-h-18">
 
           {/* Logo — left */}
-          <Link href="/" className="flex-shrink-0 flex items-center">
-            <Image
-              src={icon}
-              alt="AuraByDassy Icon"
-              width={80}
-              height={80}
-              className="object-contain -ml-4 -mr-3 md:-mr-4"
-              priority
-            />
-            <h1 className="md:text-2xl text-xl font-semibold tracking-tight text-gray-900 transition-colors duration-300">
-              AuraBy<span className="text-gray-500">Dassy</span>
-            </h1>
-          </Link>
+          <div className="flex-shrink-0">
+            <Logo />
+          </div>
 
           {/* Desktop Nav — centered absolutely */}
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center space-x-10">
-            <Link href="/" className="text-gray-700 hover:text-black font-medium transition-colors duration-200">
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6 lg:gap-10">
+            <Link href="/" className="text-sm lg:text-base text-gray-700 hover:text-black font-medium transition-colors duration-200 py-3">
               Home
             </Link>
-            <Link href="/shop" className="text-gray-700 hover:text-black font-medium transition-colors duration-200">
+            <Link href="/shop" className="text-sm lg:text-base text-gray-700 hover:text-black font-medium transition-colors duration-200 py-3">
               Shop
             </Link>
 
             {/* Category Dropdown */}
             <div className="relative group">
               <button
-                className="flex items-center text-gray-700 hover:text-black font-medium transition-colors duration-200 focus:outline-none"
+                className="flex items-center text-sm lg:text-base text-gray-700 hover:text-black font-medium transition-colors duration-200 focus:outline-none py-3"
                 aria-expanded="false"
               >
                 Categories
@@ -92,30 +81,34 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
                 </svg>
               </button>
 
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 rounded-md shadow-lg bg-white ring-[0.2px] ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 rounded-md shadow-lg bg-white ring-[0.2px] ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="py-2" role="menu">
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/shop?category=${encodeURIComponent(cat.name)}`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-black transition-colors"
-                      role="menuitem"
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
+                  {categories.length === 0 ? (
+                    <p className="px-4 py-2 text-sm text-gray-400">No categories</p>
+                  ) : (
+                    categories.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        href={`/shop?category=${encodeURIComponent(cat.name)}`}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-black transition-colors"
+                        role="menuitem"
+                      >
+                        {cat.name}
+                      </Link>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right side — search icon + hamburger */}
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex items-center gap-1">
             {/* Search Icon (all breakpoints) */}
             <button
               ref={searchBtnRef}
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100"
+              className="p-2.5 sm:p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100"
               aria-label="Search"
             >
               {isSearchOpen ? (
@@ -133,7 +126,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               type="button"
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-black hover:bg-gray-100 focus:outline-none transition-colors"
+              className="md:hidden inline-flex items-center justify-center p-2.5 rounded-md text-gray-700 hover:text-black hover:bg-gray-100 focus:outline-none transition-colors"
               aria-controls="mobile-menu"
               aria-expanded={isMobileMenuOpen}
             >
@@ -161,7 +154,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
             : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
-        <div className="bg-white/0 border-t border-gray-100  px-4 sm:px-6 lg:px-8 py-4">
+        <div className="bg-white border-t border-gray-100 px-4 sm:px-6 lg:px-8 py-4">
           <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto">
             <input
               ref={searchInputRef}
@@ -173,7 +166,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
             />
             <button
               type="submit"
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -194,14 +187,14 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-center w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
+            className="block text-center w-full px-3 py-3.5 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
           >
             Home
           </Link>
           <Link
             href="/shop"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-center w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
+            className="block text-center w-full px-3 py-3.5 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
           >
             Shop
           </Link>
@@ -210,7 +203,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
           <div className="w-full">
             <button
               onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-              className="flex justify-center items-center w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
+              className="flex justify-center items-center w-full px-3 py-3.5 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
             >
               Categories
               <svg
@@ -224,19 +217,23 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
             </button>
             <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isCategoryOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
               <div className="flex flex-col items-center bg-gray-50 py-2 rounded-b-md">
-                {categories.map((cat) => (
-                  <Link
-                    key={cat.id}
-                    href={`/shop?category=${encodeURIComponent(cat.name)}`}
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      setIsCategoryOpen(false);
-                    }}
-                    className="block w-full text-center px-4 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                ))}
+                {categories.length === 0 ? (
+                  <p className="px-4 py-2 text-sm text-gray-400">No categories</p>
+                ) : (
+                  categories.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      href={`/shop?category=${encodeURIComponent(cat.name)}`}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setIsCategoryOpen(false);
+                      }}
+                      className="block w-full text-center px-4 py-3 text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition-colors"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))
+                )}
               </div>
             </div>
           </div>

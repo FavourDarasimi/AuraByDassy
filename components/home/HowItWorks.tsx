@@ -71,7 +71,7 @@ export default function HowItWorks() {
               <h3 className="text-base font-bold text-gray-900 group-hover:text-white mb-3 tracking-tight transition-colors duration-300">
                 {step.title}
               </h3>
-              <p className="text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed transition-colors duration-300 max-w-[220px]">
+              <p className="text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed transition-colors duration-300 max-w-[260px] px-2">
                 {step.description}
               </p>
             </div>

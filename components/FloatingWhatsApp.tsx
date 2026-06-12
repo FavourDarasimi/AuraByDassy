@@ -8,10 +8,10 @@ export default function FloatingWhatsApp() {
       href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] hover:-translate-y-1 transition-all duration-300 group flex items-center justify-center cursor-pointer"
+      className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 bg-[#25D366] text-white p-3.5 sm:p-4 rounded-full shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] hover:-translate-y-1 transition-all duration-300 group flex items-center justify-center cursor-pointer"
       aria-label="Chat with us on WhatsApp"
     >
-      <FaWhatsapp className="w-8 h-8"/>
+      <FaWhatsapp className="w-6 h-6 sm:w-8 sm:h-8"/>
       {/* Tooltip visible on desktop hover */}
       <span className="absolute right-full mr-4 bg-gray-900 text-white text-sm px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block border border-gray-700">
         Chat with a Stylist!

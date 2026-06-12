@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,12 +13,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="inline-block mb-5">
-              <span className="text-xl font-black tracking-tight text-gray-900">
-                AuraBy<span className="text-gray-400">Dassy</span>
-              </span>
-            </Link>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-[220px]">
+            <Logo className="mb-5" />
+            <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-[280px]">
               Redefining premium fashion &amp; accessories in Nigeria. Your style, elevated.
             </p>
             {/* Social icons */}

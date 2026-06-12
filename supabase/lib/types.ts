@@ -5,16 +5,29 @@ export interface Database {
         Row: Category
         Insert: Omit<Category, 'id' | 'created_at'>
         Update: Partial<Omit<Category, 'id'>>
+        Relationships: Array<{
+          foreignKeyName: string
+          columns: string[]
+          isOneToOne?: boolean
+          referencedRelation: string
+          referencedColumns: string[]
+        }>
       }
       products: {
         Row: Product
         Insert: Omit<Product, 'id' | 'created_at'>
         Update: Partial<Omit<Product, 'id'>>
+        Relationships: Array<{
+          foreignKeyName: 'products_category_id_fkey'
+          columns: ['category_id']
+          isOneToOne?: false
+          referencedRelation: 'categories'
+          referencedColumns: ['id']
+        }>
       }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
-    Enums: Record<string, never>
   }
 }
 
