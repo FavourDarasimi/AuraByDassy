@@ -49,7 +49,7 @@ export default function WhyChooseUs() {
             Our Promise
           </p>
           <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
-            Why Choose DassyLuxe?
+            Why Choose AuraByDassy?
           </h2>
           <div className="w-10 h-[3px] bg-gray-900 mx-auto mt-4" />
         </div>

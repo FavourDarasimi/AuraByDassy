@@ -4,7 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { ShoppingBag } from "lucide-react";
 
 export default function Hero() {
-  const whatsappLink = "https://wa.me/2349027458696?text=Hello%20DassyLuxe!";
+  const whatsappLink = "https://wa.me/2349027458696?text=Hello%20AuraByDassy!";
   const heroImageUrl =
     "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2000";
 
@@ -14,7 +14,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 bg-gray-950">
         <Image
           src={heroImageUrl}
-          alt="Dassy Luxe Luxury Fashion"
+          alt="AuraByDassy Luxury Fashion"
           fill
           priority
           className="object-cover opacity-70"
@@ -30,7 +30,7 @@ export default function Hero() {
         {/* Eyebrow pill */}
         <span className="inline-flex items-center gap-2 py-1.5 px-4 bg-white/10 backdrop-blur-md border border-white/15 text-white text-[10px] font-bold tracking-[0.22em] uppercase mb-8 shadow-sm">
           <span className="w-1.5 h-1.5 bg-white rounded-full" />
-          New Arrivals · DassyLuxe
+          New Arrivals · AuraByDassy
         </span>
 
         {/* Headline */}

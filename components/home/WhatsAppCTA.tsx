@@ -2,7 +2,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 export default function WhatsAppCTA() {
   const whatsappLink =
-    "https://wa.me/2349027458696?text=Hello%20DassyLuxe!%20I'm%20ready%20to%20order.";
+    "https://wa.me/2349027458696?text=Hello%20AuraByDassy!%20I'm%20ready%20to%20order.";
 
   return (
     <section className="my-6 sm:my-10 mx-4 xl:mx-auto xl:max-w-[1500px]">

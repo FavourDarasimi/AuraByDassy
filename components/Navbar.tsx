@@ -60,14 +60,14 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
           <Link href="/" className="flex-shrink-0 flex items-center">
             <Image
               src={icon}
-              alt="Dassy Luxe Icon"
+              alt="AuraByDassy Icon"
               width={80}
               height={80}
               className="object-contain -ml-4 -mr-3 md:-mr-4"
               priority
             />
             <h1 className="md:text-2xl text-xl font-semibold tracking-tight text-gray-900 transition-colors duration-300">
-              Dassy<span className="text-gray-500">Luxe</span>
+              AuraBy<span className="text-gray-500">Dassy</span>
             </h1>
           </Link>
 

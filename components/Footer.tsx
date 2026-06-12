@@ -14,7 +14,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block mb-5">
               <span className="text-xl font-black tracking-tight text-gray-900">
-                Dassy<span className="text-gray-400">Luxe</span>
+                AuraBy<span className="text-gray-400">Dassy</span>
               </span>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-[220px]">
@@ -117,7 +117,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-gray-100 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-400 tracking-wide">
-            © {currentYear} DassyLuxe. All rights reserved.
+            © {currentYear} AuraByDassy. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-gray-400">
             <Link href="#" className="hover:text-gray-900 transition-colors duration-200">

@@ -17,7 +17,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const imageUrl = product.image_url;
   const isAvailable = product.available !== false;
 
-  const message = `Hello DassyLuxe, I want to order:\n\nProduct: ${product.name}\nPrice: ₦${product.price?.toLocaleString()}\nProduct ID: ${product.sku}`;
+  const message = `Hello AuraByDassy, I want to order:\n\nProduct: ${product.name}\nPrice: ₦${product.price?.toLocaleString()}\nProduct ID: ${product.sku}`;
 
   return (
     <article className="group flex flex-col bg-white">

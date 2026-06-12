@@ -39,7 +39,7 @@ function getColorHex(colorName: string): string {
 export default function ShopProductCard({ product }: { product: Product }) {
   const imageUrl = product.image_url;
 
-  const message = `Hello DassyLuxe, I want to order:\n\nProduct: ${product.name}\nPrice: ₦${product.price}\nProduct ID: ${product.sku}`.trim();
+  const message = `Hello AuraByDassy, I want to order:\n\nProduct: ${product.name}\nPrice: ₦${product.price}\nProduct ID: ${product.sku}`.trim();
 
   // Extract color swatches from product name keywords
   const colorKeywords = Object.keys(COLOR_MAP).filter((c) =>

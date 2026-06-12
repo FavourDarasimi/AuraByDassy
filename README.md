@@ -1,9 +1,9 @@
-# Dassy-Luxe
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![npm version](https://img.shields.io/badge/dassy-luxe-0.1.0-orange?style=for-the-badge) ![npm](https://img.shields.io/badge/next-16.1.6-blue?style=for-the-badge&logo=next.js&logoColor=white)
+# AuraByDassy
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![npm version](https://img.shields.io/badge/aurabydassy-0.1.0-orange?style=for-the-badge) ![npm](https://img.shields.io/badge/next-16.1.6-blue?style=for-the-badge&logo=next.js&logoColor=white)
 
 > A Next.js application built with TypeScript, Sanity, and React.
 
-Dassy-Luxe is a complex web application that utilizes the power of Next.js, Sanity, and React to provide a seamless user experience. With a focus on performance, scalability, and maintainability, this application is designed to handle large volumes of traffic and data.
+AuraByDassy is a complex web application that utilizes the power of Next.js, Sanity, and React to provide a seamless user experience. With a focus on performance, scalability, and maintainability, this application is designed to handle large volumes of traffic and data.
 
 ## 📋 Table of Contents
 
@@ -24,14 +24,14 @@ Dassy-Luxe is a complex web application that utilizes the power of Next.js, Sani
 
 ## 📦 Installation
 
-To get started with Dassy-Luxe, follow these steps:
+To get started with AuraByDassy, follow these steps:
 
 ```bash
 # Clone the repository
-git clone https://github.com/FavourDarasimi/Dassy-Luxe.git
+git clone https://github.com/FavourDarasimi/AuraByDassy.git
 
 # Navigate to directory
-cd Dassy-Luxe
+cd AuraByDassy
 
 # Install dependencies
 npm install
@@ -47,12 +47,12 @@ npm run dev
 
 ## 📖 Usage
 
-Dassy-Luxe is designed to be highly customizable and extensible. To use the application, simply navigate to the root directory and run the development server.
+AuraByDassy is designed to be highly customizable and extensible. To use the application, simply navigate to the root directory and run the development server.
 
 ## 🔗 Links
 
-- 📦 [npm Package](https://www.npmjs.com/package/dassy-luxe)
-- 🌐 [Repository](https://github.com/FavourDarasimi/Dassy-Luxe)
+- 📦 [npm Package](https://www.npmjs.com/package/aurabydassy)
+- 🌐 [Repository](https://github.com/FavourDarasimi/AuraByDassy)
 
 ## 🛠️ Tech Stack
 
@@ -105,7 +105,7 @@ Dassy-Luxe is designed to be highly customizable and extensible. To use the appl
 
 ## 🤝 Contributing
 
-Contributions are welcome! To contribute to Dassy-Luxe, follow these steps:
+Contributions are welcome! To contribute to AuraByDassy, follow these steps:
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)

@@ -4,7 +4,7 @@ import { ProductWithCategory } from "@/supabase/lib/types";
 import ShopClient from "@/components/shop/ShopClient";
 
 export const metadata = {
-  title: "Shop – Dassy Luxe",
+  title: "Shop – AuraByDassy",
   description:
     "Browse our full collection of premium fashion pieces. Filter by category, price, color and size to find exactly what you're looking for.",
 };

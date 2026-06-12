@@ -181,7 +181,7 @@ export default function ShopClient({ products, allCategories }: Props) {
             {/* Left: Title block */}
             <div className="max-w-xl">
               <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">
-                DassyLuxe — Premium Fashion
+                AuraByDassy — Premium Fashion
               </p>
               <h1 className="text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5">
                 Our<br />
