@@ -21,8 +21,8 @@ export default function DeleteConfirmDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="fixed inset-0 bg-black/50" onClick={onCancel} />
-      <div className="relative bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+      <div className="fixed inset-0 bg-black/50 motion-safe:animate-fade-in" onClick={onCancel} />
+      <div className="relative bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4 motion-safe:animate-scale-in">
         <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
         <p className="mt-2 text-sm text-gray-600">{message}</p>
         <div className="mt-6 flex justify-end gap-3">

@@ -42,7 +42,7 @@ function ProductCardRow({ product, onEdit, onDelete }: { product: Product; onEdi
           {product.category?.name || 'Uncategorized'} · {product.sku}
         </p>
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-sm font-semibold text-gray-900">GHS {product.price.toFixed(2)}</span>
+          <span className="text-sm font-semibold text-gray-900">₦{product.price.toLocaleString()}</span>
           <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${
             product.available ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
           }`}>
@@ -51,10 +51,10 @@ function ProductCardRow({ product, onEdit, onDelete }: { product: Product; onEdi
         </div>
       </div>
       <div className="flex items-center gap-1 shrink-0">
-        <button onClick={() => onEdit(product)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors" title="Edit">
+        <button onClick={() => onEdit(product)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 active:scale-90" title="Edit">
           <Pencil size={16} />
         </button>
-        <button onClick={() => onDelete(product)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+        <button onClick={() => onDelete(product)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-90" title="Delete">
           <Trash2 size={16} />
         </button>
       </div>
@@ -91,11 +91,19 @@ export default function ProductsTable({
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={6} className="py-12 text-center">
-                  <svg className="animate-spin h-6 w-6 text-gray-900 mx-auto" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
+                <td colSpan={6} className="py-8 px-4">
+                  <div className="space-y-4">
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="flex items-center gap-4 motion-safe:animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
+                        <div className="w-10 h-10 rounded-lg bg-gray-200 shrink-0 animate-shimmer" style={{ background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)", backgroundSize: "200% 100%" }} />
+                        <div className="flex-1 space-y-2">
+                          <div className="h-3 w-40 rounded bg-gray-200 animate-shimmer" style={{ background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)", backgroundSize: "200% 100%" }} />
+                          <div className="h-2.5 w-24 rounded bg-gray-200 animate-shimmer" style={{ background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)", backgroundSize: "200% 100%" }} />
+                        </div>
+                        <div className="h-3 w-16 rounded bg-gray-200 animate-shimmer" style={{ background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)", backgroundSize: "200% 100%" }} />
+                      </div>
+                    ))}
+                  </div>
                 </td>
               </tr>
             ) : products.length === 0 ? (
@@ -105,11 +113,15 @@ export default function ProductsTable({
                 </td>
               </tr>
             ) : (
-              products.map((product) => (
-                <tr key={product.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+              products.map((product, index) => (
+                <tr
+                  key={product.id}
+                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors motion-safe:animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.04}s`, animationFillMode: "backwards" }}
+                >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 ring-1 ring-black/5">
                         {product.image_url ? (
                           <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
                         ) : (
@@ -122,7 +134,7 @@ export default function ProductsTable({
                   <td className="py-3 px-4 text-gray-500 font-mono text-xs">{product.sku}</td>
                   <td className="py-3 px-4 text-gray-600">{product.category?.name || 'Uncategorized'}</td>
                   <td className="py-3 px-4 text-right font-medium text-gray-900">
-                    GHS {product.price.toFixed(2)}
+                    ₦{product.price.toLocaleString()}
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
@@ -139,14 +151,14 @@ export default function ProductsTable({
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => onEdit(product)}
-                        className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 active:scale-90"
                         title="Edit"
                       >
                         <Pencil size={16} />
                       </button>
                       <button
                         onClick={() => onDelete(product)}
-                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-90"
                         title="Delete"
                       >
                         <Trash2 size={16} />
@@ -163,17 +175,24 @@ export default function ProductsTable({
       {/* Mobile cards */}
       <div className="sm:hidden space-y-3">
         {loading ? (
-          <div className="py-12 text-center">
-            <svg className="animate-spin h-6 w-6 text-gray-900 mx-auto" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
+          <div className="py-8 px-4 space-y-3">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex items-center gap-3 motion-safe:animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
+                <div className="w-12 h-12 rounded-lg bg-gray-200 shrink-0 animate-shimmer" style={{ background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)", backgroundSize: "200% 100%" }} />
+                <div className="flex-1 space-y-2">
+                  <div className="h-3 w-36 rounded bg-gray-200 animate-shimmer" style={{ background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)", backgroundSize: "200% 100%" }} />
+                  <div className="h-2.5 w-20 rounded bg-gray-200 animate-shimmer" style={{ background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)", backgroundSize: "200% 100%" }} />
+                </div>
+              </div>
+            ))}
           </div>
         ) : products.length === 0 ? (
           <div className="py-12 text-center text-gray-500 text-sm">No products found</div>
         ) : (
-          products.map((product) => (
-            <ProductCardRow key={product.id} product={product} onEdit={onEdit} onDelete={onDelete} />
+          products.map((product, index) => (
+            <div key={product.id} className="motion-safe:animate-fade-in-up" style={{ animationDelay: `${index * 0.04}s`, animationFillMode: "backwards" }}>
+              <ProductCardRow product={product} onEdit={onEdit} onDelete={onDelete} />
+            </div>
           ))
         )}
       </div>
@@ -187,7 +206,7 @@ export default function ProductsTable({
             <button
               onClick={() => onPageChange(page - 1)}
               disabled={page <= 1}
-              className="px-3 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 active:scale-[0.97] transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
             >
               Previous
             </button>
@@ -199,7 +218,7 @@ export default function ProductsTable({
                 <button
                   key={p}
                   onClick={() => onPageChange(p)}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-150 active:scale-[0.97] ${
                     p === page
                       ? 'bg-gray-900 text-white'
                       : 'text-gray-600 bg-gray-100 hover:bg-gray-200'
@@ -212,7 +231,7 @@ export default function ProductsTable({
             <button
               onClick={() => onPageChange(page + 1)}
               disabled={page >= totalPages}
-              className="px-3 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 active:scale-[0.97] transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
             >
               Next
             </button>

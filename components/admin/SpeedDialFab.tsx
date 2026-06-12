@@ -8,7 +8,10 @@ interface SpeedDialFabProps {
   onAddProduct: () => void;
 }
 
-export default function SpeedDialFab({ onAddCategory, onAddProduct }: SpeedDialFabProps) {
+export default function SpeedDialFab({
+  onAddCategory,
+  onAddProduct,
+}: SpeedDialFabProps) {
   const [open, setOpen] = useState(false);
 
   const close = useCallback(() => setOpen(false), []);
@@ -19,14 +22,16 @@ export default function SpeedDialFab({ onAddCategory, onAddProduct }: SpeedDialF
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "Escape") close();
     },
-    [close]
+    [close],
   );
 
   const actions = [
@@ -53,7 +58,7 @@ export default function SpeedDialFab({ onAddCategory, onAddProduct }: SpeedDialF
       {/* Overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-50 bg-black/30 backdrop-blur-xs md:hidden"
           onClick={close}
           aria-hidden="true"
         />
@@ -61,7 +66,7 @@ export default function SpeedDialFab({ onAddCategory, onAddProduct }: SpeedDialF
 
       {/* Speed dial container — fixed at bottom-right on mobile only */}
       <div
-        className="fixed bottom-6 right-6 z-50 md:hidden"
+        className="fixed bottom-6 right-0  z-50 md:hidden"
         onKeyDown={handleKeyDown}
       >
         {/* Mini action buttons */}
@@ -75,10 +80,14 @@ export default function SpeedDialFab({ onAddCategory, onAddProduct }: SpeedDialF
                 className={`
                   flex items-center gap-2.5 px-4 py-2.5 bg-white rounded-xl shadow-lg border border-gray-100
                   text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900
-                  active:scale-95 transition-all duration-300
+                  active:scale-90 transition-all duration-300
                   ${open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}
                 `}
-                style={{ transitionDelay: open ? `${(actions.length - 1 - i) * 60}ms` : "0ms" }}
+                style={{
+                  transitionDelay: open
+                    ? `${(actions.length - 1 - i) * 60}ms`
+                    : "0ms",
+                }}
                 aria-label={action.label}
               >
                 <Icon size={16} className="shrink-0 text-gray-900" />

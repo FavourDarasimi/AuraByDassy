@@ -138,40 +138,40 @@ export default function InventoryPage() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center mb-6">
+      <div className="flex items-center mb-6 motion-safe:animate-fade-in-up">
         <h1 className="text-2xl font-bold text-gray-900">Inventory</h1>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
         <button
           onClick={() => handleCategoryFilter("")}
-          className={`relative p-4 rounded-xl border text-left transition-all ${
+          className={`relative p-4 rounded-xl border text-left transition-all motion-safe:animate-fade-in-up hover:shadow-sm active:scale-[0.98] ${
             filterCategory === ""
               ? "bg-gray-50 border-gray-900 ring-1 ring-gray-900"
-              : "bg-white border-gray-200 hover:border-gray-300"
+              : "bg-white border-gray-200 hover:border-gray-400"
           }`}
+          style={{ animationDelay: "0.05s", animationFillMode: "backwards" }}
         >
           <div className="flex justify-between">
-            {" "}
             <p className="text-xs font-medium text-gray-500">All</p>
             {filterCategory === "" && (
               <span className="animate-pulse w-3 h-3 bg-gray-900 rounded-full border-2 border-white" />
             )}
-          </div>{" "}
+          </div>
           <p className="text-lg font-bold text-gray-900">{total}</p>
         </button>
-        {categories.map((cat) => (
+        {categories.map((cat, index) => (
           <button
             key={cat.id}
             onClick={() => handleCategoryFilter(cat.id)}
-            className={`relative p-4 rounded-xl border text-left transition-all ${
+            className={`relative p-4 rounded-xl border text-left transition-all motion-safe:animate-fade-in-up hover:shadow-sm active:scale-[0.98] ${
               filterCategory === cat.id
                 ? "bg-gray-50 border-gray-900 ring-1 ring-gray-900"
-                : "bg-white border-gray-200 hover:border-gray-300"
+                : "bg-white border-gray-200 hover:border-gray-400"
             }`}
+            style={{ animationDelay: `${0.05 + (index + 1) * 0.05}s`, animationFillMode: "backwards" }}
           >
             <div className="flex justify-between">
-              {" "}
               <p className="text-xs font-medium text-gray-500">{cat.name}</p>
               {filterCategory === cat.id && (
                 <span className="animate-pulse w-3 h-3 bg-gray-900 rounded-full border-2 border-white" />
@@ -184,13 +184,13 @@ export default function InventoryPage() {
         ))}
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 mb-6">
+      <div className="bg-white rounded-xl border border-gray-200 mb-6 motion-safe:animate-fade-in-up" style={{ animationDelay: "0.15s", animationFillMode: "backwards" }}>
         <div className="p-4 border-b border-gray-200">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-right ml-auto gap-3">
             <div className="relative flex-1 max-w-sm">
               <Search
                 size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
               />
               <input
                 type="text"
@@ -198,23 +198,17 @@ export default function InventoryPage() {
                 onChange={(e) => setSearchInput(e.target.value)}
                 onKeyDown={handleSearchKeyDown}
                 placeholder="Search products..."
-                className="w-full pl-9 pr-8 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+                className="w-full pl-9 pr-8 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all"
               />
               {searchInput && (
                 <button
                   onClick={clearSearch}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   <X size={16} />
                 </button>
               )}
             </div>
-            <button
-              onClick={handleSearch}
-              className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-black transition-colors"
-            >
-              Search
-            </button>
           </div>
         </div>
 

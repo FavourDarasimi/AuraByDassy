@@ -61,11 +61,11 @@ export default function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 active:scale-[0.97] ${
                 isActive
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-              } ${collapsed ? "justify-center" : ""}`}
+              } ${collapsed ? "justify-center" : ""} ${collapsed && isActive ? "ring-1 ring-gray-300" : ""}`}
               title={collapsed ? item.label : undefined}
             >
               <item.icon size={20} className="shrink-0" />
@@ -121,54 +121,66 @@ export default function AdminSidebar() {
         {sidebarContent}
       </aside>
 
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
-          />
-          <div className="absolute left-0 top-0 bottom-0 w-64 bg-white flex flex-col shadow-xl">
-            <div className="flex items-center justify-between p-4 border-b border-gray-100">
-              <Logo href="/admin" />
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="p-1.5 text-gray-400 hover:text-gray-900 transition-colors"
-              >
-                <X size={20} />
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors ${
-                      isActive
-                        ? "bg-gray-100 text-gray-900 border-r-2 border-gray-900"
-                        : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-                    }`}
-                  >
-                    <item.icon size={20} className="shrink-0" />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-            <div className="p-3 border-t border-gray-200">
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors w-full"
-              >
-                <LogOut size={20} className="shrink-0" />
-                Logout
-              </button>
-            </div>
+      {/* Mobile overlay + drawer */}
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-in-out ${
+          mobileOpen
+            ? "pointer-events-auto"
+            : "pointer-events-none"
+        }`}
+      >
+        {/* Overlay */}
+        <div
+          className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+            mobileOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setMobileOpen(false)}
+        />
+        {/* Drawer panel */}
+        <div
+          className={`absolute left-0 top-0 bottom-0 w-64 bg-white flex flex-col shadow-xl transition-transform duration-300 ease-in-out ${
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between p-4 border-b border-gray-100">
+            <Logo href="/admin" />
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-1.5 text-gray-400 hover:text-gray-900 transition-colors"
+            >
+              <X size={20} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-gray-100 text-gray-900 border-r-2 border-gray-900"
+                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  <item.icon size={20} className="shrink-0" />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+          <div className="p-3 border-t border-gray-200">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors w-full"
+            >
+              <LogOut size={20} className="shrink-0" />
+              Logout
+            </button>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

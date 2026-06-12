@@ -39,8 +39,8 @@ export default function Logo({
   );
 
   const wordmark = collapsed ? null : (
-    <span className="text-lg sm:text-xl font-semibold tracking-tight text-gray-900 leading-none">
-      AuraBy<span className="text-gray-400">Dassy</span>
+    <span className="tracking-widest  text-lg sm:text-xl font-semibold tracking-tight text-gray-900 leading-none">
+      AuraByDassy
     </span>
   );
 
