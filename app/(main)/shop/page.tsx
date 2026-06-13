@@ -1,7 +1,9 @@
 import { Suspense } from "react";
-import { getProducts, getCategories, productCacheOptions, categoryCacheOptions } from "@/supabase/lib/queries";
+import { getProducts, getCategories } from "@/supabase/lib/queries";
 import { ProductWithCategory } from "@/supabase/lib/types";
 import ShopClient from "@/components/shop/ShopClient";
+
+export const revalidate = 30;
 
 export const metadata = {
   title: "Shop – AuraByDassy",

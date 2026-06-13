@@ -3,6 +3,8 @@ import Image from "next/image";
 import { supabaseAdmin } from "@/supabase/lib/client";
 import { Package, CheckCircle, ShoppingCart } from "lucide-react";
 
+export const revalidate = 30;
+
 async function getDashboardStats() {
   const sb = supabaseAdmin as any;
   const [totalProducts, availableProducts] = await Promise.all([
