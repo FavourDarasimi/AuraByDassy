@@ -13,8 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Admin - AuraByDassy",
+  title: {
+    default: "Admin – AuraByDassy",
+    template: "%s – Admin – AuraByDassy",
+  },
   description: "Admin dashboard",
+  icons: { icon: "/icon.svg" },
+  robots: { index: false, follow: false },
 };
 
 export default function AdminRootLayout({

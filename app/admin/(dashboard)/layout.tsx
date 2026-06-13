@@ -9,7 +9,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <AdminDialogProvider>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-dvh overflow-hidden">
         <AdminSidebar />
         <main
           className="flex-1 overflow-y-auto pb-16 lg:pb-0"
@@ -19,7 +19,7 @@ export default function DashboardLayout({
           }}
         >
           <AdminHeader />
-          <div className="relative pt-16 lg:pt-0">
+          <div className="relative pt-4 lg:pt-0">
             <div
               className="absolute inset-0 pointer-events-none"
               style={{

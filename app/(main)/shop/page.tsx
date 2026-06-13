@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getProducts, getCategories } from "@/supabase/lib/queries";
 import { ProductWithCategory } from "@/supabase/lib/types";
@@ -5,10 +6,15 @@ import ShopClient from "@/components/shop/ShopClient";
 
 export const dynamic = 'force-dynamic';
 
-export const metadata = {
-  title: "Shop – AuraByDassy",
+export const metadata: Metadata = {
+  title: "Shop",
   description:
-    "Browse our full collection of premium fashion pieces. Filter by category, price, color and size to find exactly what you're looking for.",
+    "Browse our full collection of premium fashion pieces. Filter by category, price and availability to find exactly what you're looking for.",
+  openGraph: {
+    title: "Shop – AuraByDassy",
+    description:
+      "Browse our full collection of premium fashion pieces. Filter by category, price and availability at AuraByDassy.",
+  },
 };
 
 async function ShopPage() {

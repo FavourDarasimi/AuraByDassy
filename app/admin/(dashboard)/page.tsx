@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Metadata } from "next";
 import Image from "next/image";
 import { supabaseAdmin } from "@/supabase/lib/client";
 import { Package, CheckCircle, ShoppingCart } from "lucide-react";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: { index: false, follow: false },
+};
 
 async function getDashboardStats() {
   const sb = supabaseAdmin as any;
