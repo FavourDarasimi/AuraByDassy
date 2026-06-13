@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { ShoppingBag } from "lucide-react";
+import { WHATSAPP_LINK } from "@/lib/constants";
 
 export default function Hero() {
-  const whatsappLink = "https://wa.me/2349027458696?text=Hello%20AuraByDassy!";
+  const whatsappLink = WHATSAPP_LINK("Hello AuraByDassy!");
   const heroImageUrl =
     "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2000";
 

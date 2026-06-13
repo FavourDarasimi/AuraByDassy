@@ -49,13 +49,13 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
     <aside className="w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xs font-bold text-gray-900 uppercase tracking-[0.2em]">
+        <h2 className="text-xs lg:text-sm font-bold text-gray-900 uppercase tracking-[0.2em]">
           Filters
         </h2>
         {hasFilters && (
           <button
             onClick={clearAll}
-            className="text-[10px] font-semibold text-gray-400 hover:text-gray-900 uppercase tracking-widest underline underline-offset-2 transition-colors"
+            className="text-[10px] lg:text-xs font-semibold text-gray-400 hover:text-gray-900 uppercase tracking-widest underline underline-offset-2 transition-colors"
           >
             Clear all
           </button>
@@ -68,7 +68,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
           onClick={() => setCatOpen((p) => !p)}
           className="flex items-center justify-between w-full group"
         >
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-900">
+          <span className="text-[11px] lg:text-sm font-bold uppercase tracking-[0.18em] text-gray-900">
             Category
           </span>
           <ChevronDown
@@ -81,7 +81,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
         {catOpen && (
           <div className="mt-4 space-y-1">
             {categories.length === 0 && (
-              <p className="text-xs text-gray-400 italic">No categories found</p>
+              <p className="text-xs lg:text-sm text-gray-400 italic">No categories found</p>
             )}
             {categories.map((cat) => {
               const checked = filters.categories.includes(cat.name);
@@ -108,14 +108,14 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
                     </div>
                     <span
                       onClick={() => toggleCategory(cat.name)}
-                      className={`text-xs transition-colors ${
+                      className={`text-xs lg:text-sm transition-colors ${
                         checked ? "text-gray-900 font-semibold" : "text-gray-500 group-hover/item:text-gray-900"
                       }`}
                     >
                       {cat.name}
                     </span>
                   </div>
-                  <span className="text-[10px] text-gray-400 tabular-nums">{cat.count}</span>
+                  <span className="text-[10px] lg:text-xs text-gray-400 tabular-nums">{cat.count}</span>
                 </label>
               );
             })}
@@ -129,7 +129,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
           onClick={() => setPriceOpen((p) => !p)}
           className="flex items-center justify-between w-full"
         >
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-900">
+          <span className="text-[11px] lg:text-sm font-bold uppercase tracking-[0.18em] text-gray-900">
             Price Range
           </span>
           <ChevronDown
@@ -195,7 +195,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
             {/* Price inputs */}
             <div className="flex items-center gap-3">
               <div className="flex-1">
-                <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1.5">Min</p>
+                <p className="text-[10px] lg:text-xs uppercase tracking-wider text-gray-400 mb-1.5">Min</p>
                 <div className="flex items-center border border-gray-200 px-2.5 py-2 gap-1 focus-within:border-gray-900 transition-colors">
                   <span className="text-xs text-gray-400">₦</span>
                   <input
@@ -210,7 +210,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
               </div>
               <div className="w-4 h-px bg-gray-300 mt-5 flex-shrink-0" />
               <div className="flex-1">
-                <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1.5">Max</p>
+                <p className="text-[10px] lg:text-xs uppercase tracking-wider text-gray-400 mb-1.5">Max</p>
                 <div className="flex items-center border border-gray-200 px-2.5 py-2 gap-1 focus-within:border-gray-900 transition-colors">
                   <span className="text-xs text-gray-400">₦</span>
                   <input

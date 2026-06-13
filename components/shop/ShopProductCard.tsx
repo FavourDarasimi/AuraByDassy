@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { Product } from "@/components/ProductCard";
+import { WHATSAPP_LINK } from "@/lib/constants";
 
 const COLOR_MAP: Record<string, string> = {
   black: "#1a1a1a",
@@ -79,7 +80,7 @@ export default function ShopProductCard({ product }: { product: Product }) {
 
         {/* WhatsApp CTA overlay on hover */}
         <a
-          href={`https://wa.me/2349027458696?text=${encodeURIComponent(message)}`}
+          href={WHATSAPP_LINK(message)}
           target="_blank"
           rel="noopener noreferrer"
           className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 py-3 bg-[#25D366]/95 text-white text-xs font-bold tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-300"

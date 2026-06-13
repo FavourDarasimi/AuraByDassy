@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import CartToast from "@/components/CartToast";
+import { CartProvider } from "@/lib/cart";
 import { getCategories } from "@/supabase/lib/queries";
 
 const geistSans = Geist({
@@ -33,12 +35,15 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen `}
       >
-        <Navbar categories={categories} />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
-        <FloatingWhatsApp />
+        <CartProvider>
+          <Navbar categories={categories} />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+          <FloatingWhatsApp />
+          <CartToast />
+        </CartProvider>
       </body>
     </html>
   );

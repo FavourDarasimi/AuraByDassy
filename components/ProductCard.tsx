@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
+import { ShoppingBag, Check } from "lucide-react";
+import { useCart } from "@/lib/cart";
+import { showCartToast } from "@/components/CartToast";
 
 export type Product = {
   id: string;
@@ -16,13 +18,24 @@ export type Product = {
 export default function ProductCard({ product }: { product: Product }) {
   const imageUrl = product.image_url;
   const isAvailable = product.available !== false;
+  const { addItem, isInCart } = useCart();
+  const inCart = isInCart(product.id);
 
-  const message = `Hello AuraByDassy, I want to order:\n\nProduct: ${product.name}\nPrice: ₦${product.price?.toLocaleString()}\nProduct ID: ${product.sku}`;
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image_url: product.image_url,
+      sku: product.sku,
+    });
+    showCartToast(product.name);
+  };
 
   return (
     <article className="group flex flex-col bg-white">
       {/* ── Image container ── */}
-      <div className="relative w-full aspect-4/5 bg-[#f5f5f5] overflow-hidden">
+        <div className="relative w-full aspect-[4/5] bg-[#f5f5f5] overflow-hidden">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -50,8 +63,33 @@ export default function ProductCard({ product }: { product: Product }) {
           </div>
         )}
 
-        {/* Hover overlay — desktop only */}
-        <div className="hidden md:flex absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-400 ease-out flex-col items-center justify-end pb-5 gap-2.5 px-4"></div>
+        {/* Hover overlay with Add to Cart — desktop only */}
+        <div className="hidden md:flex absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-400 ease-out flex-col items-center justify-end pb-5 gap-2.5 px-4">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!inCart) handleAddToCart();
+            }}
+            disabled={inCart}
+            className={`w-full flex items-center justify-center gap-2 py-2.5 text-xs font-bold tracking-wider uppercase transition-all duration-300 ${
+              inCart
+                ? "bg-white/90 text-gray-900 cursor-default"
+                : "bg-white text-gray-900 hover:bg-gray-100 cursor-pointer"
+            }`}
+          >
+            {inCart ? (
+              <>
+                <Check className="w-4 h-4" />
+                Added
+              </>
+            ) : (
+              <>
+                <ShoppingBag className="w-4 h-4" />
+                Add to Cart
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* ── Info ── */}
@@ -61,34 +99,38 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.name}
         </h3>
 
-        {/* Price + availability row */}
+        {/* Price */}
         <div className="flex items-center justify-between mt-0.5">
           <span className="text-sm sm:text-base text-gray-600">
             ₦{product.price?.toLocaleString()}
           </span>
         </div>
 
-        <a
-          href={`https://wa.me/2349027458696?text=${encodeURIComponent(message)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="w-full hidden md:flex items-center justify-center gap-2 py-2.5 bg-[#25D366] text-white text-xs font-bold tracking-wider uppercase  transition-all duration-300 delay-75 hover:bg-[#1ebd5a]"
+        {/* Mobile-only Add to Cart — always visible */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!inCart) handleAddToCart();
+          }}
+          disabled={inCart}
+          className={`md:hidden mt-2 flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold tracking-wider uppercase transition-all ${
+            inCart
+              ? "bg-gray-200 text-gray-500 cursor-default"
+              : "bg-gray-900 text-white active:bg-black"
+          }`}
         >
-          <FaWhatsapp className="w-4 h-4" />
-          Order on WhatsApp
-        </a>
-
-        {/* Mobile-only WhatsApp button — always visible, no hover needed */}
-        <a
-          href={`https://wa.me/2349027458696?text=${encodeURIComponent(message)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="md:hidden mt-2 flex items-center justify-center gap-2 w-full py-2.5 bg-[#25D366] active:bg-[#1ebd5a] text-white text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors"
-        >
-          <FaWhatsapp className="w-4 h-4" />
-          Order
-        </a>
+          {inCart ? (
+            <>
+              <Check className="w-4 h-4" />
+              Added
+            </>
+          ) : (
+            <>
+              <ShoppingBag className="w-4 h-4" />
+              Add to Cart
+            </>
+          )}
+        </button>
       </div>
     </article>
   );

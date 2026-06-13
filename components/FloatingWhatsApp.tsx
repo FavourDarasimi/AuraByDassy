@@ -1,7 +1,8 @@
 import {FaWhatsapp} from "react-icons/fa"
+import { WHATSAPP_LINK, DEFAULT_INQUIRY_TEXT } from "@/lib/constants";
 
 export default function FloatingWhatsApp() {
-  const whatsappLink = "https://wa.me/2349027458696?text=Hello%20AuraByDassy!%20I%20have%20an%20inquiry.";
+  const whatsappLink = WHATSAPP_LINK(DEFAULT_INQUIRY_TEXT);
 
   return (
     <a

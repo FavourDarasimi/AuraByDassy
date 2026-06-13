@@ -347,49 +347,59 @@ export default function ShopClient({ products, allCategories }: Props) {
       </div>
 
       {/* ══════════════════════════════════════════════════════
-          MOBILE FILTER DRAWER
+          MOBILE FILTER DRAWER — slide from left
       ══════════════════════════════════════════════════════ */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
-          />
-          <div className="absolute left-0 top-0 bottom-0 w-[280px] bg-white overflow-y-auto flex flex-col">
-            {/* Drawer header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-900">
-                Filter Products
-              </span>
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="p-1.5 text-gray-400 hover:text-gray-900 transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-opacity duration-300 ease-in-out ${
+          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ease-in-out ${
+            mobileOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setMobileOpen(false)}
+        />
+        {/* Drawer panel */}
+        <div
+          className={`absolute left-0 top-0 bottom-0 w-[280px] bg-white overflow-y-auto flex flex-col transition-transform duration-300 ease-in-out ${
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          {/* Drawer header */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-900">
+              Filter Products
+            </span>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-1.5 text-gray-400 hover:text-gray-900 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
 
-            {/* Sidebar content */}
-            <div className="flex-1 px-5 py-4 overflow-y-auto">
-              <FilterSidebar
-                categories={categoryTree}
-                filters={filters}
-                onFiltersChange={handleFiltersChange}
-              />
-            </div>
+          {/* Sidebar content */}
+          <div className="flex-1 px-5 py-4 overflow-y-auto">
+            <FilterSidebar
+              categories={categoryTree}
+              filters={filters}
+              onFiltersChange={handleFiltersChange}
+            />
+          </div>
 
-            {/* Footer CTA */}
-            <div className="px-5 py-4 border-t border-gray-100">
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="w-full py-3 bg-gray-900 text-white text-xs font-bold uppercase tracking-[0.18em] hover:bg-black transition-colors"
-              >
-                View {filteredProducts.length} results
-              </button>
-            </div>
+          {/* Footer CTA */}
+          <div className="px-5 py-4 border-t border-gray-100">
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="w-full py-3 bg-gray-900 text-white text-xs font-bold uppercase tracking-[0.18em] hover:bg-black transition-colors"
+            >
+              View {filteredProducts.length} results
+            </button>
           </div>
         </div>
-      )}
+      </div>
 
     </div>
   );

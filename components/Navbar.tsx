@@ -2,8 +2,10 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { ShoppingBag } from "lucide-react";
 import Logo from "@/components/Logo";
+import { useCart } from "@/lib/cart";
 
 type Category = { id: string; name: string };
 
@@ -16,6 +18,13 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchBtnRef = useRef<HTMLButtonElement>(null);
+
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    if (path === "/") return pathname === "/";
+    return pathname.startsWith(path);
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,8 +39,11 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
   // Close search when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      const outsideOverlay = searchRef.current && !searchRef.current.contains(e.target as Node);
-      const outsideBtn = searchBtnRef.current && !searchBtnRef.current.contains(e.target as Node);
+      const outsideOverlay =
+        searchRef.current && !searchRef.current.contains(e.target as Node);
+      const outsideBtn =
+        searchBtnRef.current &&
+        !searchBtnRef.current.contains(e.target as Node);
       if (outsideOverlay && outsideBtn) {
         setIsSearchOpen(false);
         setSearchQuery("");
@@ -54,7 +66,6 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
     <nav className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center min-h-16 md:min-h-18">
-
           {/* Logo — left */}
           <div className="flex-shrink-0">
             <Logo />
@@ -62,29 +73,45 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
 
           {/* Desktop Nav — centered absolutely */}
           <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6 lg:gap-10">
-            <Link href="/" className="text-sm lg:text-base text-gray-700 hover:text-black font-medium transition-colors duration-200 py-3">
+            <NavLink href="/" isActive={isActive("/")}>
               Home
-            </Link>
-            <Link href="/shop" className="text-sm lg:text-base text-gray-700 hover:text-black font-medium transition-colors duration-200 py-3">
+            </NavLink>
+            <NavLink href="/shop" isActive={isActive("/shop")}>
               Shop
-            </Link>
+            </NavLink>
 
             {/* Category Dropdown */}
             <div className="relative group">
               <button
-                className="flex items-center text-sm lg:text-base text-gray-700 hover:text-black font-medium transition-colors duration-200 focus:outline-none py-3"
+                className={`flex items-center text-sm lg:text-base font-medium transition-colors duration-200 focus:outline-none py-3 ${
+                  pathname.startsWith("/shop") && pathname !== "/shop"
+                    ? "text-black"
+                    : "text-gray-700 hover:text-black"
+                }`}
                 aria-expanded="false"
               >
                 Categories
-                <svg className="ml-1 w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  className="ml-1 w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
               <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 rounded-md shadow-lg bg-white ring-[0.2px] ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="py-2" role="menu">
                   {categories.length === 0 ? (
-                    <p className="px-4 py-2 text-sm text-gray-400">No categories</p>
+                    <p className="px-4 py-2 text-sm text-gray-400">
+                      No categories
+                    </p>
                   ) : (
                     categories.map((cat) => (
                       <Link
@@ -102,22 +129,54 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
             </div>
           </div>
 
-          {/* Right side — search icon + hamburger */}
+          {/* Right side — search icon + cart + hamburger */}
           <div className="ml-auto flex items-center gap-1">
+            {/* Cart Icon (all breakpoints) */}
+            <Link
+              href="/cart"
+              className="relative p-2.5 sm:p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100"
+              aria-label="Cart"
+            >
+              <ShoppingBag className="h-5 w-5" />
+              <CartBadge />
+            </Link>
+
             {/* Search Icon (all breakpoints) */}
             <button
               ref={searchBtnRef}
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2.5 sm:p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100"
+              className="p-2.5 sm:p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 "
               aria-label="Search"
             >
               {isSearchOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
               )}
             </button>
@@ -132,12 +191,34 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
             >
               <span className="sr-only">Open main menu</span>
               {isMobileMenuOpen ? (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               )}
             </button>
@@ -150,11 +231,11 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
         ref={searchRef}
         className={`absolute left-0 right-0 top-full z-40 transition-all duration-300 ease-in-out ${
           isSearchOpen
-            ? "opacity-100 translate-y-0 pointer-events-auto"
+            ? "opacity-100 translate-y-0 pointer-events-auto "
             : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
-        <div className="bg-white border-t border-gray-100 px-4 sm:px-6 lg:px-8 py-4">
+        <div className="bg-transparent border-t border-gray-100 px-4 sm:px-6 lg:px-8 py-4">
           <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto">
             <input
               ref={searchInputRef}
@@ -168,8 +249,19 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
               type="submit"
               className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors p-2"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             </button>
           </form>
@@ -179,7 +271,9 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
       {/* Mobile Menu — floats over page content */}
       <div
         className={`md:hidden absolute left-0 right-0 top-full z-40 transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2 pointer-events-none"
+          isMobileMenuOpen
+            ? "opacity-100 visible translate-y-0"
+            : "opacity-0 invisible -translate-y-2 pointer-events-none"
         } bg-white border-t border-gray-100 shadow-xl`}
         id="mobile-menu"
       >
@@ -187,14 +281,22 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-center w-full px-3 py-3.5 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
+            className={`block text-center w-full px-3 py-3.5 rounded-md text-base font-medium transition-colors ${
+              isActive("/")
+                ? "text-black bg-gray-100"
+                : "text-gray-700 hover:text-black hover:bg-gray-50"
+            }`}
           >
             Home
           </Link>
           <Link
             href="/shop"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-center w-full px-3 py-3.5 rounded-md text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
+            className={`block text-center w-full px-3 py-3.5 rounded-md text-base font-medium transition-colors ${
+              isActive("/shop")
+                ? "text-black bg-gray-100"
+                : "text-gray-700 hover:text-black hover:bg-gray-50"
+            }`}
           >
             Shop
           </Link>
@@ -212,13 +314,22 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isCategoryOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${isCategoryOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+            >
               <div className="flex flex-col items-center bg-gray-50 py-2 rounded-b-md">
                 {categories.length === 0 ? (
-                  <p className="px-4 py-2 text-sm text-gray-400">No categories</p>
+                  <p className="px-4 py-2 text-sm text-gray-400">
+                    No categories
+                  </p>
                 ) : (
                   categories.map((cat) => (
                     <Link
@@ -242,5 +353,41 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
     </nav>
   );
 };
+
+/* ── Desktop nav link with active indicator ── */
+function NavLink({
+  href,
+  isActive,
+  children,
+}: {
+  href: string;
+  isActive: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className={`relative text-sm lg:text-base font-medium transition-colors duration-200 py-3 ${
+        isActive ? "text-black" : "text-gray-700 hover:text-black"
+      }`}
+    >
+      {children}
+      {isActive && (
+        <span className="absolute -bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2.5px] bg-gray-900 rounded-full animate-scale-in" />
+      )}
+    </Link>
+  );
+}
+
+/* ── Cart badge (extracted to avoid hook inside Link) ── */
+function CartBadge() {
+  const { itemCount } = useCart();
+  if (itemCount === 0) return null;
+  return (
+    <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center w-4.5 h-4.5 text-[10px] font-bold leading-none bg-gray-900 text-white rounded-full min-w-[18px] min-h-[18px] px-1">
+      {itemCount > 99 ? "99+" : itemCount}
+    </span>
+  );
+}
 
 export default Navbar;
