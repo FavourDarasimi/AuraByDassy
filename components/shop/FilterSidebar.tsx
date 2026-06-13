@@ -15,7 +15,7 @@ type CategoryWithCount = {
 };
 
 const PRICE_MIN = 0;
-const PRICE_MAX = 5000000;
+const PRICE_MAX = 100000;
 
 type Props = {
   categories: CategoryWithCount[];
@@ -141,54 +141,71 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
 
         {priceOpen && (
           <div className="mt-5">
-            {/* Slider track */}
-            <div className="relative h-[3px] bg-gray-200 rounded-full mb-5">
+            {/* Slider track — uses a taller hit area (h-6) while keeping the
+                visual line thin via a centered inner bar. */}
+            <div className="relative h-6 mb-5 flex items-center">
+              {/* Visual track background */}
+              <div className="absolute inset-x-0 h-[3px] bg-gray-200 rounded-full" />
+              {/* Visual track fill */}
               <div
-                className="absolute h-full bg-gray-900 rounded-full"
+                className="absolute h-[3px] bg-gray-900 rounded-full"
                 style={{
-                  left: `${((filters.priceMin - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
-                  right: `${100 - ((filters.priceMax - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
+                  left: `${(filters.priceMin / PRICE_MAX) * 100}%`,
+                  right: `${100 - (filters.priceMax / PRICE_MAX) * 100}%`,
                 }}
               />
-              {/* Min thumb */}
-              <input
-                type="range"
-                min={PRICE_MIN}
-                max={PRICE_MAX}
-                step={5000}
-                value={filters.priceMin}
-                onChange={(e) => {
-                  const v = Math.min(Number(e.target.value), filters.priceMax - 5000);
-                  onFiltersChange({ ...filters, priceMin: v });
-                }}
-                className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-                style={{ zIndex: filters.priceMin > PRICE_MAX - 5000 ? 5 : 3 }}
-                aria-label="Minimum price"
-              />
-              {/* Max thumb */}
-              <input
-                type="range"
-                min={PRICE_MIN}
-                max={PRICE_MAX}
-                step={5000}
-                value={filters.priceMax}
-                onChange={(e) => {
-                  const v = Math.max(Number(e.target.value), filters.priceMin + 5000);
-                  onFiltersChange({ ...filters, priceMax: v });
-                }}
-                className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-                style={{ zIndex: 4 }}
-                aria-label="Maximum price"
-              />
+              {/* Min range input — clipped to left portion up to max */}
+              <div
+                className="absolute inset-y-0 left-0 pointer-events-none"
+                style={{ width: `${(filters.priceMax / PRICE_MAX) * 100}%` }}
+              >
+                <input
+                  type="range"
+                  min={PRICE_MIN}
+                  max={PRICE_MAX}
+                  step={5000}
+                  value={filters.priceMin}
+                  onChange={(e) => {
+                    const raw = Number(e.target.value);
+                    const scaled = Math.round(raw * (filters.priceMax / PRICE_MAX));
+                    const v = Math.min(scaled, filters.priceMax - 5000);
+                    onFiltersChange({ ...filters, priceMin: v });
+                  }}
+                  className="w-full h-full opacity-0 cursor-pointer pointer-events-auto"
+                  aria-label="Minimum price"
+                />
+              </div>
+              {/* Max range input — clipped to right portion from min onward */}
+              <div
+                className="absolute inset-y-0 pointer-events-none"
+                style={{ left: `${(filters.priceMin / PRICE_MAX) * 100}%`, right: 0 }}
+              >
+                <input
+                  type="range"
+                  min={PRICE_MIN}
+                  max={PRICE_MAX}
+                  step={5000}
+                  value={filters.priceMax}
+                  onChange={(e) => {
+                    const raw = Number(e.target.value);
+                    const range = PRICE_MAX - filters.priceMin;
+                    const scaled = Math.round(filters.priceMin + (raw / PRICE_MAX) * range);
+                    const v = Math.max(scaled, filters.priceMin + 5000);
+                    onFiltersChange({ ...filters, priceMax: v });
+                  }}
+                  className="w-full h-full opacity-0 cursor-pointer pointer-events-auto"
+                  aria-label="Maximum price"
+                />
+              </div>
               {/* Visual thumb min */}
               <div
                 className="absolute w-4 h-4 bg-white border-2 border-gray-900 rounded-full -translate-y-1/2 top-1/2 -translate-x-1/2 shadow-sm pointer-events-none"
-                style={{ left: `${((filters.priceMin - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%` }}
+                style={{ left: `${(filters.priceMin / PRICE_MAX) * 100}%` }}
               />
               {/* Visual thumb max */}
               <div
                 className="absolute w-4 h-4 bg-white border-2 border-gray-900 rounded-full -translate-y-1/2 top-1/2 -translate-x-1/2 shadow-sm pointer-events-none"
-                style={{ left: `${((filters.priceMax - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%` }}
+                style={{ left: `${(filters.priceMax / PRICE_MAX) * 100}%` }}
               />
             </div>
 

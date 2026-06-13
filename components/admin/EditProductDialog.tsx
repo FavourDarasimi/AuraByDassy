@@ -16,6 +16,7 @@ interface Product {
   image_url: string | null
   category_id: string
   available: boolean
+  description: string | null
 }
 
 interface EditProductDialogProps {
@@ -30,6 +31,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
   const [price, setPrice] = useState('')
   const [categoryId, setCategoryId] = useState('')
   const [available, setAvailable] = useState(true)
+  const [description, setDescription] = useState('')
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [categories, setCategories] = useState<Category[]>([])
@@ -43,6 +45,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
       setPrice(product.price.toString())
       setCategoryId(product.category_id)
       setAvailable(product.available)
+      setDescription(product.description || '')
       setImagePreview(product.image_url)
       setImageFile(null)
       setError('')
@@ -110,6 +113,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
           category_id: categoryId,
           available,
           image_url: imageUrl || undefined,
+          description: description.trim() || undefined,
         }),
       })
 
@@ -161,6 +165,20 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
               onChange={(e) => setPrice(e.target.value)}
               placeholder="0.00"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="editProductDescription" className="block text-sm font-medium text-gray-700 mb-1">
+              Description
+            </label>
+            <textarea
+              id="editProductDescription"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Enter product description"
+              rows={3}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 resize-none"
             />
           </div>
 

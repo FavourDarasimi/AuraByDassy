@@ -4,7 +4,7 @@ import HowItWorks from "@/components/home/HowItWorks";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import WhatsAppCTA from "@/components/home/WhatsAppCTA";
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (

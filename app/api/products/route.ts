@@ -56,7 +56,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, price, image_url, category_id, available } = body
+    const { name, price, image_url, category_id, available, description } = body
 
     if (!name || !price || !category_id) {
       return NextResponse.json({ error: 'Name, price, and category are required' }, { status: 400 })
@@ -73,6 +73,7 @@ export async function POST(request: Request) {
         category_id,
         sku,
         available: available !== undefined ? available : true,
+        description: description || null,
       })
       .select('*, category:categories(name)')
       .single()

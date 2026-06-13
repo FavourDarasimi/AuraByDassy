@@ -45,7 +45,7 @@ export async function getProducts(options?: {
 }
 
 export async function getFeaturedProducts(): Promise<ProductWithCategory[]> {
-  return getProducts({ availableOnly: true, limit: 8 })
+  return getProducts({ availableOnly: true, limit: 20 })
 }
 
 export async function getProductById(id: string): Promise<ProductWithCategory | null> {

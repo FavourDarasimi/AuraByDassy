@@ -3,7 +3,7 @@ import { getProducts, getCategories } from "@/supabase/lib/queries";
 import { ProductWithCategory } from "@/supabase/lib/types";
 import ShopClient from "@/components/shop/ShopClient";
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: "Shop – AuraByDassy",

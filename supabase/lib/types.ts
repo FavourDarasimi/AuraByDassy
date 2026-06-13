@@ -45,6 +45,7 @@ export interface Product {
   category_id: string
   available: boolean
   sku: string
+  description: string | null
   created_at: string
 }
 

@@ -24,7 +24,7 @@ const SORT_OPTIONS = [
 ];
 
 const PRICE_MIN = 0;
-const PRICE_MAX = 5000000;
+const PRICE_MAX = 100000;
 
 function buildCategoryTree(
   allCategories: { id: string; name: string }[],

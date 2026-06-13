@@ -3,8 +3,26 @@ import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+function seededRandom(seed: number) {
+  let s = seed;
+  return () => {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    return (s >>> 0) / 0xffffffff;
+  };
+}
+
+function pickDaily<T>(items: T[], count: number): T[] {
+  const today = new Date();
+  const seed =
+    today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  const rng = seededRandom(seed);
+  const shuffled = [...items].sort(() => rng() - 0.5);
+  return shuffled.slice(0, count);
+}
+
 export default async function FeaturedProducts() {
-  const products = await getFeaturedProducts();
+  const all = await getFeaturedProducts();
+  const products = pickDaily(all, 4);
 
   return (
     <section className="py-20 sm:py-28 bg-white">

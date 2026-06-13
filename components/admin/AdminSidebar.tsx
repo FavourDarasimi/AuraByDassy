@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -9,10 +9,13 @@ import {
   LogOut,
   PanelLeftClose,
   PanelLeftOpen,
-  Menu,
+  Plus,
   X,
+  FolderPlus,
+  PackagePlus,
 } from "lucide-react";
 import Logo from "@/components/Logo";
+import { useAdminDialogs } from "@/components/admin/AdminDialogContext";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -21,16 +24,21 @@ const navItems = [
 
 export default function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [fabOpen, setFabOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const prevPathname = useRef(pathname);
+
+  const { openAddCategory, openAddProduct } = useAdminDialogs();
+
+  if (prevPathname.current !== pathname) {
+    setFabOpen(false);
+    setFabOpen(false);
+    prevPathname.current = pathname;
+  }
 
   useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (mobileOpen) {
+    if (fabOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -38,7 +46,7 @@ export default function AdminSidebar() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mobileOpen]);
+  }, [fabOpen]);
 
   const handleLogout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -54,14 +62,14 @@ export default function AdminSidebar() {
         <Logo href="/admin" collapsed={collapsed} />
       </div>
 
-      <nav className="flex-1 p-2 space-y-0.5 mt-8">
+      <nav className="flex-1 p-2 space-y-4 mt-8">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 active:scale-[0.97] ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-base font-medium transition-all duration-200 active:scale-[0.97] ${
                 isActive
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
@@ -78,7 +86,7 @@ export default function AdminSidebar() {
       <div className="p-2 border-t border-gray-200">
         <button
           onClick={handleLogout}
-          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors w-full ${
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors w-full ${
             collapsed ? "justify-center" : ""
           }`}
           title={collapsed ? "Logout" : undefined}
@@ -90,17 +98,27 @@ export default function AdminSidebar() {
     </>
   );
 
+  const fabActions = [
+    {
+      label: "Add Category",
+      icon: FolderPlus,
+      onClick: () => {
+        setFabOpen(false);
+        openAddCategory();
+      },
+    },
+    {
+      label: "Add Product",
+      icon: PackagePlus,
+      onClick: () => {
+        setFabOpen(false);
+        openAddProduct();
+      },
+    },
+  ];
+
   return (
     <>
-      {/* Mobile hamburger */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed top-3 left-3 z-50 bg-white border border-gray-200 rounded-lg p-2.5 text-gray-700 hover:text-gray-900 hover:bg-gray-50 shadow-sm transition-colors"
-        aria-label="Open sidebar"
-      >
-        <Menu size={20} />
-      </button>
-
       {/* Desktop sidebar */}
       <aside
         className={`hidden lg:flex relative bg-white border-r border-gray-200 flex-col shrink-0 transition-all duration-300 ${
@@ -121,66 +139,90 @@ export default function AdminSidebar() {
         {sidebarContent}
       </aside>
 
-      {/* Mobile overlay + drawer */}
-      <div
-        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-in-out ${
-          mobileOpen
-            ? "pointer-events-auto"
-            : "pointer-events-none"
-        }`}
-      >
-        {/* Overlay */}
-        <div
-          className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
-            mobileOpen ? "opacity-100" : "opacity-0"
-          }`}
-          onClick={() => setMobileOpen(false)}
-        />
-        {/* Drawer panel */}
-        <div
-          className={`absolute left-0 top-0 bottom-0 w-64 bg-white flex flex-col shadow-xl transition-transform duration-300 ease-in-out ${
-            mobileOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <div className="flex items-center justify-between p-4 border-b border-gray-100">
-            <Logo href="/admin" />
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="p-1.5 text-gray-400 hover:text-gray-900 transition-colors"
-            >
-              <X size={20} />
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-gray-100 text-gray-900 border-r-2 border-gray-900"
-                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-                  }`}
-                >
-                  <item.icon size={20} className="shrink-0" />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </div>
-          <div className="p-3 border-t border-gray-200">
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors w-full"
-            >
-              <LogOut size={20} className="shrink-0" />
-              Logout
-            </button>
-          </div>
+      {/* Mobile/tablet bottom navigation */}
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-gray-200 px-6">
+        {/* FAB action menu */}
+        {fabOpen && (
+          <>
+            <div
+              className="fixed inset-0 bg-black/30 backdrop-blur-xs"
+              onClick={() => setFabOpen(false)}
+              aria-hidden="true"
+            />
+            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+              {fabActions.map((action, i) => {
+                const Icon = action.icon;
+                return (
+                  <button
+                    key={action.label}
+                    onClick={action.onClick}
+                    className="flex items-center gap-2.5 px-4 py-2.5 bg-white rounded-xl shadow-lg border border-gray-100 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 active:scale-90 transition-all duration-300 motion-safe:animate-fade-in-up"
+                    style={{
+                      animationDelay: `${i * 60}ms`,
+                      animationFillMode: "backwards",
+                    }}
+                    aria-label={action.label}
+                  >
+                    <Icon size={16} className="shrink-0 text-gray-900" />
+                    <span className="whitespace-nowrap">{action.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        <div className="flex items-center justify-center h-16 gap-[5px]">
+          {/* Dashboard */}
+          <Link
+            href="/admin"
+            className={`flex items-center justify-center w-12 h-12 rounded-xl transition-all duration-200 ${
+              pathname === "/admin"
+                ? "bg-gray-100 text-gray-900"
+                : "text-gray-400 hover:text-gray-900 hover:bg-gray-50"
+            }`}
+            aria-label="Dashboard"
+          >
+            <LayoutDashboard size={22} />
+          </Link>
+
+          {/* FAB — raised higher */}
+          <button
+            onClick={() => setFabOpen((prev) => !prev)}
+            className={`relative flex items-center justify-center w-14 h-14 rounded-full shadow-xl text-white transition-all duration-300 active:scale-95 -translate-y-3 ${
+              fabOpen ? "bg-gray-800" : "bg-gray-900 hover:bg-black"
+            }`}
+            aria-label={fabOpen ? "Close menu" : "Open menu"}
+            aria-expanded={fabOpen}
+          >
+            <Plus
+              size={24}
+              className={`absolute transition-transform duration-300 ${
+                fabOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
+              }`}
+            />
+            <X
+              size={24}
+              className={`absolute transition-transform duration-300 ${
+                fabOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
+              }`}
+            />
+          </button>
+
+          {/* Inventory */}
+          <Link
+            href="/admin/inventory"
+            className={`flex items-center justify-center w-12 h-12 rounded-xl transition-all duration-200 ${
+              pathname === "/admin/inventory"
+                ? "bg-gray-100 text-gray-900"
+                : "text-gray-400 hover:text-gray-900 hover:bg-gray-50"
+            }`}
+            aria-label="Inventory"
+          >
+            <Package size={22} />
+          </Link>
         </div>
-      </div>
+      </nav>
     </>
   );
 }
