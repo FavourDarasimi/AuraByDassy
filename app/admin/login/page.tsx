@@ -45,48 +45,27 @@ export default function AdminLoginPage() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50">
-      {/* Animated gradient background */}
+      {/* Subtle gradient background */}
       <div
-        className="absolute inset-0 animate-gradient"
+        className="absolute inset-0"
         style={{
           background:
             "linear-gradient(-45deg, #f8f9fa, #e9ecef, #f1f3f5, #f8f9fa)",
-          backgroundSize: "400% 400%",
         }}
       />
 
-      {/* Decorative floating elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute -top-24 -right-24 w-96 h-96 rounded-full border border-gray-200/50 animate-float-slow"
-          style={{ animationDelay: "0s" }}
-        />
-        <div
-          className="absolute -bottom-32 -left-32 w-[30rem] h-[30rem] rounded-full border border-gray-200/40 animate-float-slower"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-1/4 left-1/6 w-16 h-16 rounded-full bg-gray-200/10 animate-float-slow"
-          style={{ animationDelay: "2s" }}
-        />
-        <div
-          className="absolute bottom-1/3 right-1/5 w-10 h-10 rounded-full bg-gray-200/10 animate-float-slower"
-          style={{ animationDelay: "0.5s" }}
-        />
-      </div>
-
       <div className="relative w-full max-w-sm mx-4">
-        <div className="text-center mb-8 flex flex-col items-center gap-2 motion-safe:animate-fade-in-up">
+          <div className="text-center mb-10 flex flex-col items-center gap-1 motion-safe:animate-fade-in-up">
           <Logo />
           <p className="text-sm text-gray-500">Admin Dashboard Login</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 motion-safe:animate-scale-in">
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8 motion-safe:animate-scale-in">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="motion-safe:animate-fade-in-up" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-xs font-semibold text-gray-500 mb-1.5"
               >
                 Email
               </label>
@@ -96,7 +75,7 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@example.com"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all"
                 autoFocus
               />
             </div>
@@ -104,7 +83,7 @@ export default function AdminLoginPage() {
             <div className="motion-safe:animate-fade-in-up" style={{ animationDelay: "0.15s", animationFillMode: "backwards" }}>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-xs font-semibold text-gray-500 mb-1.5"
               >
                 Password
               </label>
@@ -114,7 +93,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all"
               />
             </div>
 
@@ -124,7 +103,7 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-black transition-colors active:scale-[0.98] disabled:active:scale-100 disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full py-2.5 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-black transition-colors active:scale-[0.98] disabled:active:scale-100 disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
               >
                 {loading && (
                   <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">

@@ -54,7 +54,7 @@ export default function AdminSidebar() {
         <Logo href="/admin" collapsed={collapsed} />
       </div>
 
-      <nav className="flex-1 p-2 space-y-1 mt-6">
+      <nav className="flex-1 p-2 space-y-0.5 mt-8">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (

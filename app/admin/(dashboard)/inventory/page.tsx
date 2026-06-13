@@ -137,9 +137,9 @@ export default function InventoryPage() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 sm:p-8">
       <div className="flex items-center mb-6 motion-safe:animate-fade-in-up">
-        <h1 className="text-2xl font-bold text-gray-900">Inventory</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Inventory</h1>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
@@ -152,13 +152,13 @@ export default function InventoryPage() {
           }`}
           style={{ animationDelay: "0.05s", animationFillMode: "backwards" }}
         >
-          <div className="flex justify-between">
-            <p className="text-xs font-medium text-gray-500">All</p>
+          <div className="flex flex-col">
+              <p className="text-xl font-bold text-gray-900">{total}</p>
+              <p className="text-xs font-medium text-gray-500 mt-0.5">All</p>
+            </div>
             {filterCategory === "" && (
-              <span className="animate-pulse w-3 h-3 bg-gray-900 rounded-full border-2 border-white" />
+              <span className="absolute top-3 right-3 w-2 h-2 bg-gray-900 rounded-full" />
             )}
-          </div>
-          <p className="text-lg font-bold text-gray-900">{total}</p>
         </button>
         {categories.map((cat, index) => (
           <button
@@ -171,22 +171,22 @@ export default function InventoryPage() {
             }`}
             style={{ animationDelay: `${0.05 + (index + 1) * 0.05}s`, animationFillMode: "backwards" }}
           >
-            <div className="flex justify-between">
-              <p className="text-xs font-medium text-gray-500">{cat.name}</p>
-              {filterCategory === cat.id && (
-                <span className="animate-pulse w-3 h-3 bg-gray-900 rounded-full border-2 border-white" />
-              )}
+            <div className="flex flex-col">
+              <p className="text-xl font-bold text-gray-900">
+                {cat.product_count}
+              </p>
+              <p className="text-xs font-medium text-gray-500 mt-0.5">{cat.name}</p>
             </div>
-            <p className="text-lg font-bold text-gray-900">
-              {cat.product_count}
-            </p>
+            {filterCategory === cat.id && (
+              <span className="absolute top-3 right-3 w-2 h-2 bg-gray-900 rounded-full" />
+            )}
           </button>
         ))}
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 mb-6 motion-safe:animate-fade-in-up" style={{ animationDelay: "0.15s", animationFillMode: "backwards" }}>
-        <div className="p-4 border-b border-gray-200">
-          <div className="flex items-center justify-right ml-auto gap-3">
+        <div className="p-5 border-b border-gray-200">
+          <div className="flex items-center justify-end gap-3">
             <div className="relative flex-1 max-w-sm">
               <Search
                 size={16}

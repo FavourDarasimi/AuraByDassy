@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { Upload } from 'lucide-react'
 
 interface Category {
@@ -130,9 +131,9 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 motion-safe:animate-fade-in" onClick={onClose} />
-      <div className="relative bg-white rounded-xl shadow-xl p-6 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto motion-safe:animate-scale-in">
-        <h3 className="text-lg font-semibold text-gray-900">Edit Product</h3>
-        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+      <div className="relative bg-white rounded-xl shadow-xl p-6 sm:p-8 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto motion-safe:animate-scale-in">
+        <h3 className="text-xl font-semibold text-gray-900">Edit Product</h3>
+        <form onSubmit={handleSubmit} className="mt-6 space-y-5">
           <div>
             <label htmlFor="editProductName" className="block text-sm font-medium text-gray-700 mb-1">
               Product Name
@@ -143,7 +144,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter product name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
             />
           </div>
 
@@ -159,7 +160,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               placeholder="0.00"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
             />
           </div>
 
@@ -171,7 +172,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
               id="editProductCategory"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
             >
               <option value="">Select a category</option>
               {categories.map((cat) => (
@@ -190,7 +191,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
             >
               {imagePreview ? (
                 <div className="relative">
-                  <img src={imagePreview} alt="Preview" className="max-h-40 mx-auto rounded-lg" />
+                  <Image src={imagePreview} alt="Preview" width={400} height={160} className="max-h-40 w-auto mx-auto rounded-lg" />
                   <p className="text-xs text-gray-500 mt-2">Click to change image</p>
                 </div>
               ) : (
@@ -214,11 +215,11 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
             <button
               type="button"
               onClick={() => setAvailable(!available)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
-                available ? "bg-gray-900" : "bg-gray-200"
-              }`}
               role="switch"
               aria-checked={available}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 cursor-pointer ${
+                available ? "bg-gray-900" : "bg-gray-200"
+              }`}
             >
               <span
                 className={`inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
@@ -232,7 +233,7 @@ export default function EditProductDialog({ isOpen, product, onClose, onSuccess 
             <p className="text-sm text-red-600">{error}</p>
           )}
 
-          <div className="flex justify-end gap-3 pt-2">
+          <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
             <button
               type="button"
               onClick={onClose}

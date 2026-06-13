@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { X } from "lucide-react";
 
 interface AddCategoryDialogProps {
   isOpen: boolean;
@@ -53,9 +54,19 @@ export default function AddCategoryDialog({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 motion-safe:animate-fade-in" onClick={onClose} />
-      <div className="relative bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4 motion-safe:animate-scale-in">
-        <h3 className="text-lg font-semibold text-gray-900">Add Category</h3>
-        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+      <div className="relative bg-white rounded-xl shadow-xl p-6 sm:p-8 w-full max-w-md mx-4 motion-safe:animate-scale-in">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold text-gray-900">Add Category</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            disabled={loading}
+            className="p-1.5 text-gray-400 hover:text-gray-900 rounded-lg transition-colors"
+          >
+            <X size={20} />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="mt-6 space-y-5">
           <div>
             <label
               htmlFor="categoryName"
@@ -69,22 +80,14 @@ export default function AddCategoryDialog({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter category name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
               autoFocus
             />
           </div>
 
           {error && <p className="text-sm text-red-600">{error}</p>}
 
-          <div className="flex justify-end gap-3 pt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={loading}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
-            >
-              Cancel
-            </button>
+          <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
             <button
               type="submit"
               disabled={loading}

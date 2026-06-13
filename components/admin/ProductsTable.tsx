@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Pencil, Trash2 } from 'lucide-react'
 
 interface Product {
@@ -28,20 +29,20 @@ interface ProductsTableProps {
 
 function ProductCardRow({ product, onEdit, onDelete }: { product: Product; onEdit: (p: Product) => void; onDelete: (p: Product) => void }) {
   return (
-    <div className="flex items-center gap-3 p-3 border border-gray-100 rounded-lg bg-white hover:border-gray-200 transition-colors">
-      <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden shrink-0">
+    <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-white hover:border-gray-200 transition-colors">
+      <div className="relative w-12 h-12 rounded-lg bg-gray-100 overflow-hidden shrink-0">
         {product.image_url ? (
-          <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
+          <Image src={product.image_url} alt={product.name} fill className="object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">N/A</div>
         )}
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-gray-900 truncate">{product.name}</p>
-        <p className="text-xs text-gray-400 mt-0.5">
+        <p className="text-xs text-gray-400 mt-1">
           {product.category?.name || 'Uncategorized'} · {product.sku}
         </p>
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex items-center gap-2 mt-1.5">
           <span className="text-sm font-semibold text-gray-900">₦{product.price.toLocaleString()}</span>
           <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${
             product.available ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
@@ -80,12 +81,12 @@ export default function ProductsTable({
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-200">
-              <th className="text-left py-3 px-4 font-semibold text-gray-500">Product</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-500">SKU</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-500">Category</th>
-              <th className="text-right py-3 px-4 font-semibold text-gray-500">Price</th>
-              <th className="text-center py-3 px-4 font-semibold text-gray-500">Status</th>
-              <th className="text-right py-3 px-4 font-semibold text-gray-500">Actions</th>
+              <th className="text-left py-3.5 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Product</th>
+              <th className="text-left py-3.5 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">SKU</th>
+              <th className="text-left py-3.5 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
+              <th className="text-right py-3.5 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Price</th>
+              <th className="text-center py-3.5 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="text-right py-3.5 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -121,9 +122,9 @@ export default function ProductsTable({
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 ring-1 ring-black/5">
+                      <div className="relative w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 ring-1 ring-black/5">
                         {product.image_url ? (
-                          <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
+                          <Image src={product.image_url} alt={product.name} fill className="object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">N/A</div>
                         )}
@@ -133,7 +134,7 @@ export default function ProductsTable({
                   </td>
                   <td className="py-3 px-4 text-gray-500 font-mono text-xs">{product.sku}</td>
                   <td className="py-3 px-4 text-gray-600">{product.category?.name || 'Uncategorized'}</td>
-                  <td className="py-3 px-4 text-right font-medium text-gray-900">
+                  <td className="py-3.5 px-4 text-right font-semibold text-gray-900">
                     ₦{product.price.toLocaleString()}
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -198,7 +199,7 @@ export default function ProductsTable({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 px-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-gray-100">
           <p className="text-xs sm:text-sm text-gray-500">
             Showing {(page - 1) * pageSize + 1}-{Math.min(page * pageSize, total)} of {total}
           </p>
