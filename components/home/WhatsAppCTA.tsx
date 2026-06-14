@@ -28,14 +28,14 @@ export default function WhatsAppCTA() {
 
           {/* Headline */}
           <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-5">
-            Let's Get You
+            Let&apos;s Get You
             <br />
             <span className="text-[#25D366]">Styled.</span>
           </h2>
 
           {/* Body */}
           <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-10 max-w-md mx-auto">
-            Chat with our styling experts on WhatsApp. We'll help you find the perfect piece and dispatch it fast.
+            Chat with our styling experts on WhatsApp. We&apos;ll help you find the perfect piece and dispatch it fast.
           </p>
 
           {/* CTA */}

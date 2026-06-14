@@ -4,8 +4,7 @@ import {
   createContext,
   useContext,
   useCallback,
-  useEffect,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -52,47 +51,67 @@ function writeStorage(items: CartItem[]) {
   }
 }
 
+function subscribeToCart(callback: () => void): () => void {
+  window.addEventListener("storage", callback);
+  window.addEventListener("cart-updated", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("cart-updated", callback);
+  };
+}
+
+let cachedSnapshot: CartItem[] = [];
+let cachedSnapshotKey = "";
+
+function getCartSnapshot(): CartItem[] {
+  const next = readStorage();
+  const key = JSON.stringify(next);
+  if (key !== cachedSnapshotKey) {
+    cachedSnapshot = next;
+    cachedSnapshotKey = key;
+  }
+  return cachedSnapshot;
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setItems(readStorage());
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (mounted) writeStorage(items);
-  }, [items, mounted]);
+  const items = useSyncExternalStore(subscribeToCart, getCartSnapshot, getCartSnapshot);
 
   const addItem = useCallback(
     (newItem: Omit<CartItem, "quantity">) => {
-      setItems((prev) => {
-        const existing = prev.find((i) => i.id === newItem.id);
-        if (existing) {
-          return prev.map((i) =>
-            i.id === newItem.id ? { ...i, quantity: i.quantity + 1 } : i
-          );
-        }
-        return [...prev, { ...newItem, quantity: 1 }];
-      });
+      const prev = readStorage();
+      const existing = prev.find((i) => i.id === newItem.id);
+      let next: CartItem[];
+      if (existing) {
+        next = prev.map((i) =>
+          i.id === newItem.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      } else {
+        next = [...prev, { ...newItem, quantity: 1 }];
+      }
+      writeStorage(next);
+      window.dispatchEvent(new Event("cart-updated"));
     },
     [],
   );
 
   const removeItem = useCallback((id: string) => {
-    setItems((prev) => prev.filter((i) => i.id !== id));
+    const prev = readStorage();
+    const next = prev.filter((i) => i.id !== id);
+    writeStorage(next);
+    window.dispatchEvent(new Event("cart-updated"));
   }, []);
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
     if (quantity < 1) return;
-    setItems((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, quantity } : i)),
-    );
+    const prev = readStorage();
+    const next = prev.map((i) => (i.id === id ? { ...i, quantity } : i));
+    writeStorage(next);
+    window.dispatchEvent(new Event("cart-updated"));
   }, []);
 
   const clearCart = useCallback(() => {
-    setItems([]);
+    writeStorage([]);
+    window.dispatchEvent(new Event("cart-updated"));
   }, []);
 
   const isInCart = useCallback(

@@ -5,24 +5,18 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const sb = supabaseAdmin as any;
-
-    const [totalRes, todayRes, bySourceRes] = await Promise.all([
-      sb
+    const [totalRes, todayRes] = await Promise.all([
+      supabaseAdmin
         .from("order_clicks")
         .select("*", { count: "exact", head: true }),
-      sb
+      supabaseAdmin
         .from("order_clicks")
         .select("*", { count: "exact", head: true })
         .gte("created_at", new Date(new Date().setHours(0, 0, 0, 0)).toISOString()),
-      sb
-        .from("order_clicks")
-        .select("source, count")
-        .limit(1000),
     ]);
 
     // Build source breakdown manually since we can't groupBy
-    const { data: allClicks } = await sb
+    const { data: allClicks } = await supabaseAdmin
       .from("order_clicks")
       .select("source")
       .limit(5000);

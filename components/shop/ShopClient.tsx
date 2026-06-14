@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useMemo, useCallback, useEffect, startTransition } from "react";
+import Link from "next/link";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import FilterSidebar, { FilterState } from "@/components/shop/FilterSidebar";
 import ProductCard, { Product } from "@/components/ProductCard";
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -59,6 +60,8 @@ function SkeletonCard() {
 
 export default function ShopClient({ products, allCategories }: Props) {
   const searchParams = useSearchParams();
+  const router       = useRouter();
+  const pathname     = usePathname();
   const queryParam    = searchParams.get("query") || "";
   const categoryParam = searchParams.get("category") || "";
 
@@ -78,13 +81,6 @@ export default function ShopClient({ products, allCategories }: Props) {
     const t = setTimeout(() => setLoading(false), 600);
     return () => clearTimeout(t);
   }, []);
-
-  // Sync URL category param
-  useEffect(() => {
-    if (categoryParam) {
-      setFilters((prev) => ({ ...prev, categories: [categoryParam] }));
-    }
-  }, [categoryParam]);
 
   const categoryTree = useMemo(
     () => buildCategoryTree(allCategories, products),
@@ -126,19 +122,26 @@ export default function ShopClient({ products, allCategories }: Props) {
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
 
+  useEffect(() => {
+    startTransition(() => {
+      setPage(1);
+    });
+  }, [filters, queryParam, sort]);
+
   const paginatedProducts = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
     return filteredProducts.slice(start, start + PAGE_SIZE);
   }, [filteredProducts, page]);
 
-  // Reset to page 1 when filters or sort change
-  useEffect(() => {
-    setPage(1);
-  }, [filters, queryParam, sort]);
-
   // ── Applied chips ──────────────────────────────────────────
   const appliedChips = useMemo(() => {
     const chips: { label: string; onRemove: () => void }[] = [];
+    if (queryParam) {
+      chips.push({
+        label: `"${queryParam}"`,
+        onRemove: () => router.replace(pathname),
+      });
+    }
     filters.categories.forEach((cat) =>
       chips.push({
         label: cat,
@@ -157,7 +160,7 @@ export default function ShopClient({ products, allCategories }: Props) {
       });
     }
     return chips;
-  }, [filters]);
+  }, [filters, queryParam, router, pathname]);
 
   const handleFiltersChange = useCallback((f: FilterState) => setFilters(f), []);
   const resetFilters = () =>
@@ -187,7 +190,7 @@ export default function ShopClient({ products, allCategories }: Props) {
         <div className="relative max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-8">
-            <a href="/" className="hover:text-white transition-colors duration-200">Home</a>
+            <Link href="/" className="hover:text-white transition-colors duration-200">Home</Link>
             <span className="text-gray-600">›</span>
             <span className="text-white">Shop</span>
           </nav>

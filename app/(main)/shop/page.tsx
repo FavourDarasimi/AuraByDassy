@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getProducts, getCategories } from "@/supabase/lib/queries";
 import { SITE_KEYWORDS } from "@/lib/seo";
-import { ProductWithCategory } from "@/supabase/lib/types";
 import ShopClient from "@/components/shop/ShopClient";
 
 export const dynamic = 'force-dynamic';

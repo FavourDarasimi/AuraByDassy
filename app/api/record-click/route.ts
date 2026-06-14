@@ -5,14 +5,13 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { product_id, product_name, sku, source } = body;
-    const sb = supabaseAdmin as any;
 
-    const { error } = await sb.from("order_clicks").insert({
+    const { error } = await supabaseAdmin.from("order_clicks").insert({
       product_id: product_id || null,
       product_name: product_name || "",
       sku: sku || "",
       source: source || "unknown",
-    });
+    } as never);
 
     if (error) {
       console.error("Error recording click:", error);

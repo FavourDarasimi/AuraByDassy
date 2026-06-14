@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, startTransition } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -22,11 +22,14 @@ export default function AdminSidebar() {
 
   const { openAddCategory, openAddProduct } = useAdminDialogs();
 
-  if (prevPathname.current !== pathname) {
-    setFabOpen(false);
-    setFabOpen(false);
-    prevPathname.current = pathname;
-  }
+  useEffect(() => {
+    if (prevPathname.current !== pathname) {
+      startTransition(() => {
+        setFabOpen(false);
+      });
+      prevPathname.current = pathname;
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (fabOpen) {

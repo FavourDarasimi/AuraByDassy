@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { supabase } from './client'
-import type { Category, Product, ProductWithCategory } from './types'
+import type { Category, ProductWithCategory } from './types'
 
 export async function getCategories(): Promise<Pick<Category, 'id' | 'name'>[]> {
   const { data, error } = await supabase

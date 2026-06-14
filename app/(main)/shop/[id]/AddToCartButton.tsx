@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ShoppingBag01Icon, CheckIcon } from '@hugeicons/core-free-icons';
 import { useCart } from "@/lib/cart";

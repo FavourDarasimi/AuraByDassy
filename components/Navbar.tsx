@@ -383,9 +383,11 @@ function NavLink({
 /* ── Cart badge (extracted to avoid hook inside Link) ── */
 function CartBadge() {
   const { itemCount } = useCart();
-  if (itemCount === 0) return null;
   return (
-    <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center w-4.5 h-4.5 text-[10px] font-bold leading-none bg-gray-900 text-white rounded-full min-w-[18px] min-h-[18px] px-1">
+    <span
+      className="absolute -top-0.5 -right-0.5 flex items-center justify-center w-4.5 h-4.5 text-[10px] font-bold leading-none bg-gray-900 text-white rounded-full min-w-[18px] min-h-[18px] px-1"
+      style={itemCount === 0 ? { display: "none" } : undefined}
+    >
       {itemCount > 99 ? "99+" : itemCount}
     </span>
   );

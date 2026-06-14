@@ -42,13 +42,14 @@ export default function CartToast() {
 
   return (
     <div className="fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-[100] animate-fade-in-up">
-      <div className="flex items-center gap-2.5 bg-gray-900 text-white px-5 py-3 rounded-full shadow-2xl text-sm font-medium">
+      <div className="flex items-center gap-4 md:gap-2.5 bg-gray-900 text-white px-5 py-3 rounded-full shadow-2xl text-sm font-medium">
         <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white/20">
           <HugeiconsIcon icon={CheckIcon} size={12} />
         </span>
+        <div className="flex flex-col md:flex-row items-center gap-0 md:gap-2.5">
         <span className="truncate max-w-[220px] sm:max-w-xs">{name}</span>
         <span className="text-white/70">added to cart</span>
-      </div>
+      </div></div>
     </div>
   );
 }

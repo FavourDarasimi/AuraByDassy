@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getProductById } from "@/supabase/lib/queries";
@@ -41,9 +42,9 @@ export default async function ProductDetailPage({ params }: Props) {
       <div className="max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-xs text-gray-500 uppercase tracking-[0.2em] mb-10">
-          <a href="/" className="hover:text-gray-900 transition-colors">Home</a>
+          <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
           <span className="text-gray-300">/</span>
-          <a href="/shop" className="hover:text-gray-900 transition-colors">Shop</a>
+          <Link href="/shop" className="hover:text-gray-900 transition-colors">Shop</Link>
           <span className="text-gray-300">/</span>
           <span className="text-gray-900 font-semibold">{product.name}</span>
         </nav>
