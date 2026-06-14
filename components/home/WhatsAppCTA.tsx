@@ -6,7 +6,7 @@ export default function WhatsAppCTA() {
 
   return (
     <section className="my-6 sm:my-10 mx-4 xl:mx-auto xl:max-w-[1500px]">
-      <div className="relative bg-[#0a0a0a] overflow-hidden px-6 sm:px-16 py-16 sm:py-24">
+      <div className="relative bg-[#0a0a0a] overflow-hidden px-4 sm:px-16 py-16 sm:py-24">
         {/* Subtle grid texture */}
         <div
           className="absolute inset-0 opacity-[0.05]"
@@ -42,9 +42,9 @@ export default function WhatsAppCTA() {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white text-sm font-bold uppercase tracking-[0.18em] hover:bg-[#1ebd5a] active:scale-95 transition-all duration-200 shadow-[0_0_40px_rgba(37,211,102,0.25)] whitespace-nowrap"
+            className="inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 bg-[#25D366] text-white text-xs sm:text-sm font-bold uppercase tracking-[0.1em] sm:tracking-[0.18em] hover:bg-[#1ebd5a] active:scale-95 transition-all duration-200 shadow-[0_0_40px_rgba(37,211,102,0.25)] whitespace-nowrap"
           >
-            <FaWhatsapp className="w-5 h-5 flex-shrink-0" />
+            <FaWhatsapp className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
             Chat with us on WhatsApp
           </a>
 
