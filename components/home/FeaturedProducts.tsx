@@ -1,7 +1,8 @@
 import { getFeaturedProducts } from "@/supabase/lib/queries";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 
 function seededRandom(seed: number) {
   let s = seed;
@@ -44,7 +45,7 @@ export default async function FeaturedProducts() {
             className="hidden sm:inline-flex items-center gap-2 text-xs font-bold text-gray-900 uppercase tracking-[0.18em] border-b border-gray-900 pb-0.5 hover:opacity-60 transition-opacity duration-200 whitespace-nowrap self-end"
           >
             View all
-            <ArrowRight className="w-3.5 h-3.5" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
           </Link>
         </div>
 
@@ -62,7 +63,7 @@ export default async function FeaturedProducts() {
             className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-[0.18em] hover:bg-black transition-colors whitespace-nowrap"
           >
             View All Collections
-            <ArrowRight className="w-3.5 h-3.5" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
           </Link>
         </div>
 
@@ -73,7 +74,7 @@ export default async function FeaturedProducts() {
             className="inline-flex items-center justify-center gap-2 px-10 py-3.5 border border-gray-900 text-gray-900 text-xs font-bold uppercase tracking-[0.18em] hover:bg-gray-900 hover:text-white transition-all duration-200 whitespace-nowrap"
           >
             View All Collections
-            <ArrowRight className="w-3.5 h-3.5" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
           </Link>
         </div>
       </div>

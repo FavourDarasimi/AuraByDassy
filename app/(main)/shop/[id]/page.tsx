@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getProductById } from "@/supabase/lib/queries";
+import { SITE_KEYWORDS } from "@/lib/seo";
 import { WHATSAPP_LINK } from "@/lib/constants";
-import { ShoppingBag } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { WhatsappIcon } from '@hugeicons/core-free-icons';
 import AddToCartButton from "./AddToCartButton";
 
 type Props = {
@@ -19,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: product.name,
     description: product.description || `Shop ${product.name} at AuraByDassy`,
+    keywords: [...SITE_KEYWORDS, product.name, product.category?.name || ""].filter(Boolean),
     openGraph: {
       title: `${product.name} – AuraByDassy`,
       description: product.description || `Shop ${product.name} at AuraByDassy`,
@@ -119,7 +121,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 rel="noopener noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 py-3.5 text-xs font-bold tracking-wider uppercase transition-all duration-300 bg-[#25D366] text-white hover:bg-[#1da851]"
               >
-                <FaWhatsapp className="w-4 h-4" />
+                <HugeiconsIcon icon={WhatsappIcon} size={16} />
                 Order on WhatsApp
               </a>
             </div>

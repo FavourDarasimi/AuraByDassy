@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ChevronDown } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ChevronDownIcon } from '@hugeicons/core-free-icons';
 
 export type FilterState = {
   categories: string[];
@@ -71,7 +72,8 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
           <span className="text-[11px] lg:text-sm font-bold uppercase tracking-[0.18em] text-gray-900">
             Category
           </span>
-          <ChevronDown
+          <HugeiconsIcon
+            icon={ChevronDownIcon}
             className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ${
               catOpen ? "rotate-180" : ""
             }`}
@@ -132,7 +134,8 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
           <span className="text-[11px] lg:text-sm font-bold uppercase tracking-[0.18em] text-gray-900">
             Price Range
           </span>
-          <ChevronDown
+          <HugeiconsIcon
+            icon={ChevronDownIcon}
             className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ${
               priceOpen ? "rotate-180" : ""
             }`}

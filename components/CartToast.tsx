@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { CheckIcon } from '@hugeicons/core-free-icons';
 
 type ToastEvent = { productName: string };
 
@@ -43,7 +44,7 @@ export default function CartToast() {
     <div className="fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-[100] animate-fade-in-up">
       <div className="flex items-center gap-2.5 bg-gray-900 text-white px-5 py-3 rounded-full shadow-2xl text-sm font-medium">
         <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white/20">
-          <Check className="w-3 h-3" />
+          <HugeiconsIcon icon={CheckIcon} size={12} />
         </span>
         <span className="truncate max-w-[220px] sm:max-w-xs">{name}</span>
         <span className="text-white/70">added to cart</span>

@@ -6,6 +6,21 @@ export const SITE_DESCRIPTION =
 export const SITE_URL = "https://aurabyadassy.com";
 export const SITE_LOGO = "/icon.svg";
 
+export const SITE_KEYWORDS = [
+  "AuraByDassy",
+  "Nigerian fashion brand",
+  "premium clothing Nigeria",
+  "luxury fashion Africa",
+  "online clothing store Nigeria",
+  "buy clothes online Nigeria",
+  "African fashion",
+  "Lagos fashion",
+  "women's fashion Nigeria",
+  "men's clothing Nigeria",
+  "accessories Nigeria",
+  "Nigerian luxury brand",
+];
+
 export function buildMetadata(overrides: {
   title: string;
   description: string;

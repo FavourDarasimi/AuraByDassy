@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingBag, Check } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ShoppingBag01Icon, CheckIcon } from '@hugeicons/core-free-icons';
 import { useCart } from "@/lib/cart";
 import { showCartToast } from "@/components/CartToast";
 
@@ -40,12 +41,12 @@ export default function AddToCartButton({ product }: { product: Product }) {
     >
       {inCart ? (
         <>
-          <Check className="w-4 h-4" />
+          <HugeiconsIcon icon={CheckIcon} size={16} />
           Added to Cart
         </>
       ) : (
         <>
-          <ShoppingBag className="w-4 h-4" />
+          <HugeiconsIcon icon={ShoppingBag01Icon} size={16} />
           Add to Cart
         </>
       )}

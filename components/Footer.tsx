@@ -20,7 +20,7 @@ export default function Footer() {
             {/* Social icons */}
             <div className="flex gap-3">
               <a
-                href="#"
+                href="https://www.instagram.com/dassy_olami?igsh=bmt4bGxnOXJzdzc3"
                 className="w-9 h-9 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-900 hover:border-gray-900 transition-all duration-200"
                 aria-label="Instagram"
               >
@@ -48,8 +48,9 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 { label: "Shop", href: "/shop" },
-                { label: "About Us", href: "/about" },
-                { label: "Contact", href: "/contact" },
+                { label: "Cart", href: "/cart" },
+                // { label: "About Us", href: "/about" },
+                // { label: "Contact", href: "/contact" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link

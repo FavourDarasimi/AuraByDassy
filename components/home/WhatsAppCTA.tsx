@@ -1,4 +1,5 @@
-import { FaWhatsapp } from "react-icons/fa";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { WhatsappIcon } from '@hugeicons/core-free-icons';
 import { WHATSAPP_LINK } from "@/lib/constants";
 
 export default function WhatsAppCTA() {
@@ -44,7 +45,7 @@ export default function WhatsAppCTA() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 bg-[#25D366] text-white text-xs sm:text-sm font-bold uppercase tracking-[0.1em] sm:tracking-[0.18em] hover:bg-[#1ebd5a] active:scale-95 transition-all duration-200 shadow-[0_0_40px_rgba(37,211,102,0.25)] whitespace-nowrap"
           >
-            <FaWhatsapp className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            <HugeiconsIcon icon={WhatsappIcon} size={16} className="sm:!w-5 sm:!h-5 flex-shrink-0" />
             Chat with us on WhatsApp
           </a>
 

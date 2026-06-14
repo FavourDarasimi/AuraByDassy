@@ -2,17 +2,18 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  Upload,
-  X,
-  Package,
-  Tag,
-  DollarSign,
-  FileText,
-  Grid,
-  Sparkles,
-  Eye,
-} from "lucide-react";
+  Upload01Icon,
+  Cancel01Icon,
+  PackageIcon,
+  Tag01Icon,
+  DollarSignIcon,
+  File01Icon,
+  GridIcon,
+  SparklesIcon,
+  EyeIcon,
+} from '@hugeicons/core-free-icons';
 
 interface Category {
   id: string;
@@ -213,7 +214,7 @@ export default function EditProductDialog({
           <div className="flex items-start justify-between relative z-10">
             <div className="space-y-1">
               <div className="flex items-center gap-1.5 text-white/50 text-[10px] font-medium tracking-[0.25em] uppercase">
-                <Package size={12} />
+                <HugeiconsIcon icon={PackageIcon} size={12} />
                 AuraByDassy
               </div>
               <h2 className="text-xl font-bold text-white tracking-tight">
@@ -229,7 +230,7 @@ export default function EditProductDialog({
               disabled={loading}
               className="p-1.5 text-white/40 hover:text-white rounded-lg transition-all duration-200 hover:bg-white/10 active:scale-90"
             >
-              <X size={18} />
+              <HugeiconsIcon icon={Cancel01Icon} size={18} />
             </button>
           </div>
 
@@ -263,7 +264,7 @@ export default function EditProductDialog({
           {/* Section: Basic Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">
-              <Sparkles size={12} />
+              <HugeiconsIcon icon={SparklesIcon} size={12} />
               Basic Information
             </div>
 
@@ -276,7 +277,7 @@ export default function EditProductDialog({
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 <span className="flex items-center gap-1.5">
-                  <Tag size={14} className="text-gray-400" />
+                  <HugeiconsIcon icon={Tag01Icon} size={14} className="text-gray-400" />
                   Product Name
                 </span>
               </label>
@@ -299,7 +300,7 @@ export default function EditProductDialog({
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 <span className="flex items-center gap-1.5">
-                  <DollarSign size={14} className="text-gray-400" />
+                  <HugeiconsIcon icon={DollarSignIcon} size={14} className="text-gray-400" />
                   Price (₦)
                 </span>
               </label>
@@ -329,7 +330,7 @@ export default function EditProductDialog({
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 <span className="flex items-center gap-1.5">
-                  <FileText size={14} className="text-gray-400" />
+                  <HugeiconsIcon icon={File01Icon} size={14} className="text-gray-400" />
                   Description
                 </span>
               </label>
@@ -352,7 +353,7 @@ export default function EditProductDialog({
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 <span className="flex items-center gap-1.5">
-                  <Grid size={14} className="text-gray-400" />
+                  <HugeiconsIcon icon={GridIcon} size={14} className="text-gray-400" />
                   Category
                 </span>
               </label>
@@ -375,7 +376,7 @@ export default function EditProductDialog({
           {/* Divider */}
           <div className="border-t border-gray-100 pt-4">
             <div className="flex items-center gap-2 text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">
-              <Eye size={12} />
+              <HugeiconsIcon icon={EyeIcon} size={12} />
               Media & Status
             </div>
 
@@ -386,7 +387,7 @@ export default function EditProductDialog({
             >
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 <span className="flex items-center gap-1.5">
-                  <Upload size={14} className="text-gray-400" />
+                  <HugeiconsIcon icon={Upload01Icon} size={14} className="text-gray-400" />
                   Product Image
                 </span>
               </label>
@@ -420,7 +421,7 @@ export default function EditProductDialog({
                   </div>
                 ) : (
                   <div className="py-3">
-                    <Upload className="mx-auto h-7 w-7 text-gray-300" />
+                    <HugeiconsIcon icon={Upload01Icon} className="mx-auto h-7 w-7 text-gray-300" />
                     <p className="mt-1.5 text-sm text-gray-400">
                       {dragOver
                         ? "Drop image here"

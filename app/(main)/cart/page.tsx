@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
-import { ShoppingBag, Trash2, Minus, Plus, ArrowLeft } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ShoppingBag01Icon, Delete02Icon, MinusSignIcon, PlusSignIcon, ArrowLeft01Icon, WhatsappIcon } from '@hugeicons/core-free-icons';
 import { useCart } from "@/lib/cart";
 import { WHATSAPP_LINK } from "@/lib/constants";
 import { recordClick } from "@/lib/recordClick";
@@ -41,7 +41,7 @@ export default function CartPage() {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4 py-28">
         <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-6">
-          <ShoppingBag className="w-8 h-8 text-gray-300" />
+          <HugeiconsIcon icon={ShoppingBag01Icon} size={32} className="text-gray-300" />
         </div>
         <h1 className="text-2xl font-black text-gray-900 tracking-tight mb-2">
           Your cart is empty
@@ -54,7 +54,7 @@ export default function CartPage() {
           href="/shop"
           className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-xs font-bold uppercase tracking-[0.18em] hover:bg-black transition-colors"
         >
-          <ShoppingBag className="w-4 h-4" />
+          <HugeiconsIcon icon={ShoppingBag01Icon} size={16} />
           Shop Now
         </Link>
       </div>
@@ -111,7 +111,7 @@ export default function CartPage() {
                 href="/shop"
                 className="inline-flex items-center gap-2 px-5 py-3 border border-white/10 text-[10px] font-bold text-gray-400 uppercase tracking-[0.18em] hover:text-white hover:border-white/30 transition-all duration-200"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <HugeiconsIcon icon={ArrowLeft01Icon} size={14} />
                 Continue Shopping
               </Link>
             </div>
@@ -139,7 +139,7 @@ export default function CartPage() {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-200">
-                        <ShoppingBag className="w-6 h-6" />
+                        <HugeiconsIcon icon={ShoppingBag01Icon} size={24} />
                       </div>
                     )}
                   </div>
@@ -160,7 +160,7 @@ export default function CartPage() {
                         className="p-1 text-red-500 hover:text-red-600 transition-colors flex-shrink-0"
                         aria-label={`Remove ${item.name}`}
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <HugeiconsIcon icon={Delete02Icon} size={16} />
                       </button>
                     </div>
 
@@ -175,7 +175,7 @@ export default function CartPage() {
                           className="p-1.5 sm:p-2 text-gray-500 hover:text-gray-900 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                           aria-label="Decrease quantity"
                         >
-                          <Minus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                          <HugeiconsIcon icon={MinusSignIcon} size={12} />
                         </button>
                         <span className="w-8 sm:w-10 text-center text-xs sm:text-sm font-semibold text-gray-900 tabular-nums">
                           {item.quantity}
@@ -187,7 +187,7 @@ export default function CartPage() {
                           className="p-1.5 sm:p-2 text-gray-500 hover:text-gray-900 transition-colors"
                           aria-label="Increase quantity"
                         >
-                          <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                          <HugeiconsIcon icon={PlusSignIcon} size={12} />
                         </button>
                       </div>
 
@@ -242,7 +242,7 @@ export default function CartPage() {
                 onClick={handleWhatsAppOrder}
                 className="mt-6 w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#25D366] text-white text-sm font-bold uppercase tracking-[0.15em] hover:bg-[#1ebd5a] transition-all duration-200 shadow-[0_0_24px_rgba(37,211,102,0.2)]"
               >
-                <FaWhatsapp className="w-5 h-5" />
+                <HugeiconsIcon icon={WhatsappIcon} size={20} />
                 Order via WhatsApp
               </button>
 

@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { Search, X, Plus, Pencil, Trash2 } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Search01Icon, Cancel01Icon, PlusSignIcon, PencilEdit01Icon, Delete02Icon } from '@hugeicons/core-free-icons';
 import ProductsTable from "@/components/admin/ProductsTable";
 import EditProductDialog from "@/components/admin/EditProductDialog";
 import DeleteConfirmDialog from "@/components/admin/DeleteConfirmDialog";
@@ -169,14 +170,14 @@ export default function InventoryPage() {
             onClick={openAddCategory}
             className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-900 active:scale-[0.97] transition-all duration-150 flex items-center gap-2 whitespace-nowrap"
           >
-            <Plus size={16} />
+            <HugeiconsIcon icon={PlusSignIcon} size={16} />
             Add Category
           </button>
           <button
             onClick={openAddProduct}
             className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-black active:scale-[0.97] transition-all duration-150 flex items-center gap-2 whitespace-nowrap"
           >
-            <Plus size={16} />
+            <HugeiconsIcon icon={PlusSignIcon} size={16} />
             Add Product
           </button>
         </div>
@@ -236,7 +237,8 @@ export default function InventoryPage() {
         <div className="p-5 border-b border-gray-200">
           <div className="flex items-center justify-end gap-3">
             <div className="relative flex-1 max-w-sm">
-              <Search
+              <HugeiconsIcon
+                icon={Search01Icon}
                 size={16}
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
               />
@@ -253,7 +255,7 @@ export default function InventoryPage() {
                   onClick={clearSearch}
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  <X size={16} />
+                  <HugeiconsIcon icon={Cancel01Icon} size={16} />
                 </button>
               )}
             </div>
@@ -289,7 +291,7 @@ export default function InventoryPage() {
                 onClick={() => setDetailTarget(null)}
                 className="p-1.5 text-gray-400 hover:text-gray-900 rounded-lg transition-colors"
               >
-                <X size={18} />
+                <HugeiconsIcon icon={Cancel01Icon} size={18} />
               </button>
             </div>
 
@@ -358,14 +360,14 @@ export default function InventoryPage() {
                 onClick={handleEditFromDetail}
                 className="flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-wider bg-gray-900 text-white rounded-lg hover:bg-black transition-colors"
               >
-                <Pencil size={14} />
+                <HugeiconsIcon icon={PencilEdit01Icon} size={14} />
                 Edit Product
               </button>
               <button
                 onClick={handleDeleteFromDetail}
                 className="flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-wider bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
               >
-                <Trash2 size={14} />
+                <HugeiconsIcon icon={Delete02Icon} size={14} />
                 Delete
               </button>
             </div>

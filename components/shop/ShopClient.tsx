@@ -4,7 +4,8 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import FilterSidebar, { FilterState } from "@/components/shop/FilterSidebar";
 import ProductCard, { Product } from "@/components/ProductCard";
-import { SlidersHorizontal, X, ChevronDown, PackageSearch, ChevronLeft, ChevronRight } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { SlidersHorizontalIcon, Cancel01Icon, ChevronDownIcon, PackageSearchIcon, ChevronLeftIcon, ChevronRightIcon } from '@hugeicons/core-free-icons';
 
 type CategoryWithCount = {
   name: string;
@@ -275,7 +276,7 @@ export default function ShopClient({ products, allCategories }: Props) {
                     className="flex items-center gap-1.5 px-2.5 py-1 border border-gray-300 text-[10px] font-semibold text-gray-600 uppercase tracking-widest hover:border-gray-900 hover:text-gray-900 transition-all duration-150"
                   >
                     {chip.label}
-                    <X className="w-2.5 h-2.5" />
+                    <HugeiconsIcon icon={Cancel01Icon} size={10} />
                   </button>
                 ))}
               </div>
@@ -287,7 +288,7 @@ export default function ShopClient({ products, allCategories }: Props) {
                   onClick={() => setMobileOpen(true)}
                   className="lg:hidden flex items-center gap-2 px-3.5 py-2 border border-gray-200 text-xs font-semibold uppercase tracking-widest text-gray-700 hover:border-gray-900 transition-colors"
                 >
-                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <HugeiconsIcon icon={SlidersHorizontalIcon} size={14} />
                   Filter
                 </button>
 
@@ -299,7 +300,7 @@ export default function ShopClient({ products, allCategories }: Props) {
                   >
                     <span className="text-gray-400 normal-case tracking-normal font-normal">Sort:</span>
                     {currentSortLabel}
-                    <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${sortOpen ? "rotate-180" : ""}`} />
+                    <HugeiconsIcon icon={ChevronDownIcon} className={`w-3 h-3 text-gray-400 transition-transform ${sortOpen ? "rotate-180" : ""}`} />
                   </button>
                   {sortOpen && (
                     <>
@@ -348,7 +349,7 @@ export default function ShopClient({ products, allCategories }: Props) {
                       disabled={page <= 1}
                       className="flex items-center gap-1 px-3 py-2 text-xs font-semibold uppercase tracking-widest border border-gray-200 text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-colors disabled:opacity-30 disabled:pointer-events-none"
                     >
-                      <ChevronLeft className="w-3.5 h-3.5" />
+                      <HugeiconsIcon icon={ChevronLeftIcon} size={14} />
                       Prev
                     </button>
 
@@ -374,7 +375,7 @@ export default function ShopClient({ products, allCategories }: Props) {
                       className="flex items-center gap-1 px-3 py-2 text-xs font-semibold uppercase tracking-widest border border-gray-200 text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-colors disabled:opacity-30 disabled:pointer-events-none"
                     >
                       Next
-                      <ChevronRight className="w-3.5 h-3.5" />
+                      <HugeiconsIcon icon={ChevronRightIcon} size={14} />
                     </button>
                   </div>
                 )}
@@ -382,7 +383,7 @@ export default function ShopClient({ products, allCategories }: Props) {
             ) : (
               /* Empty state */
               <div className="flex flex-col items-center justify-center py-28 text-center">
-                <PackageSearch className="w-12 h-12 text-gray-200 mb-5" />
+                <HugeiconsIcon icon={PackageSearchIcon} size={48} className="text-gray-200 mb-5" />
                 <h3 className="text-sm font-bold text-gray-800 uppercase tracking-[0.2em] mb-2">
                   No Products Found
                 </h3>
@@ -431,7 +432,7 @@ export default function ShopClient({ products, allCategories }: Props) {
               onClick={() => setMobileOpen(false)}
               className="p-1.5 text-gray-400 hover:text-gray-900 transition-colors"
             >
-              <X className="w-4 h-4" />
+              <HugeiconsIcon icon={Cancel01Icon} size={16} />
             </button>
           </div>
 

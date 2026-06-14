@@ -3,23 +3,14 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  LayoutDashboard,
-  Package,
-  LogOut,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Plus,
-  X,
-  FolderPlus,
-  PackagePlus,
-} from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { DashboardSquare01Icon, PackageIcon, Logout01Icon, PanelLeftCloseIcon, PanelLeftOpenIcon, PlusSignIcon, Cancel01Icon, FolderAddIcon, PackageAdd01Icon } from '@hugeicons/core-free-icons';
 import Logo from "@/components/Logo";
 import { useAdminDialogs } from "@/components/admin/AdminDialogContext";
 
 const navItems = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/inventory", label: "Products", icon: Package },
+  { href: "/admin", label: "Dashboard", icon: DashboardSquare01Icon },
+  { href: "/admin/inventory", label: "Products", icon: PackageIcon },
 ];
 
 export default function AdminSidebar() {
@@ -76,7 +67,7 @@ export default function AdminSidebar() {
               } ${collapsed ? "justify-center" : ""} ${collapsed && isActive ? "ring-1 ring-gray-300" : ""}`}
               title={collapsed ? item.label : undefined}
             >
-              <item.icon size={20} className="shrink-0" />
+              <HugeiconsIcon icon={item.icon} size={20} className="shrink-0" />
               {!collapsed && <span>{item.label}</span>}
             </Link>
           );
@@ -91,7 +82,7 @@ export default function AdminSidebar() {
           }`}
           title={collapsed ? "Logout" : undefined}
         >
-          <LogOut size={20} className="shrink-0" />
+          <HugeiconsIcon icon={Logout01Icon} size={20} className="shrink-0" />
           {!collapsed && <span>Logout</span>}
         </button>
       </div>
@@ -101,7 +92,7 @@ export default function AdminSidebar() {
   const fabActions = [
     {
       label: "Add Category",
-      icon: FolderPlus,
+      icon: FolderAddIcon,
       onClick: () => {
         setFabOpen(false);
         openAddCategory();
@@ -109,7 +100,7 @@ export default function AdminSidebar() {
     },
     {
       label: "Add Product",
-      icon: PackagePlus,
+      icon: PackageAdd01Icon,
       onClick: () => {
         setFabOpen(false);
         openAddProduct();
@@ -131,9 +122,9 @@ export default function AdminSidebar() {
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? (
-            <PanelLeftOpen size={20} />
+            <HugeiconsIcon icon={PanelLeftOpenIcon} size={20} />
           ) : (
-            <PanelLeftClose size={20} />
+            <HugeiconsIcon icon={PanelLeftCloseIcon} size={20} />
           )}
         </button>
         {sidebarContent}
@@ -151,7 +142,6 @@ export default function AdminSidebar() {
             />
             <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
               {fabActions.map((action, i) => {
-                const Icon = action.icon;
                 return (
                   <button
                     key={action.label}
@@ -163,7 +153,7 @@ export default function AdminSidebar() {
                     }}
                     aria-label={action.label}
                   >
-                    <Icon size={16} className="shrink-0 text-gray-900" />
+                    <HugeiconsIcon icon={action.icon} size={16} className="shrink-0 text-gray-900" />
                     <span className="whitespace-nowrap">{action.label}</span>
                   </button>
                 );
@@ -183,7 +173,7 @@ export default function AdminSidebar() {
             }`}
             aria-label="Dashboard"
           >
-            <LayoutDashboard size={22} />
+            <HugeiconsIcon icon={DashboardSquare01Icon} size={22} />
           </Link>
 
           {/* FAB — raised higher */}
@@ -195,13 +185,15 @@ export default function AdminSidebar() {
             aria-label={fabOpen ? "Close menu" : "Open menu"}
             aria-expanded={fabOpen}
           >
-            <Plus
+            <HugeiconsIcon
+              icon={PlusSignIcon}
               size={24}
               className={`absolute transition-transform duration-300 ${
                 fabOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
               }`}
             />
-            <X
+            <HugeiconsIcon
+              icon={Cancel01Icon}
               size={24}
               className={`absolute transition-transform duration-300 ${
                 fabOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
@@ -219,7 +211,7 @@ export default function AdminSidebar() {
             }`}
             aria-label="Inventory"
           >
-            <Package size={22} />
+            <HugeiconsIcon icon={PackageIcon} size={22} />
           </Link>
         </div>
       </nav>

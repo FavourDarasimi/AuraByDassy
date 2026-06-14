@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, LogOut } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ChevronDownIcon, Logout01Icon } from '@hugeicons/core-free-icons';
 import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
 
@@ -72,7 +73,8 @@ export default function AdminHeader() {
             <span className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs font-bold uppercase tracking-wide">
               {initials}
             </span>
-            <ChevronDown
+            <HugeiconsIcon
+              icon={ChevronDownIcon}
               size={14}
               className={`transition-transform duration-200 ${
                 dropdownOpen ? "rotate-180" : ""
@@ -91,7 +93,7 @@ export default function AdminHeader() {
                 onClick={handleLogout}
                 className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
               >
-                <LogOut size={16} />
+                <HugeiconsIcon icon={Logout01Icon} size={16} />
                 Logout
               </button>
             </div>

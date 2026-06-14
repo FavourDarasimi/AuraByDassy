@@ -7,7 +7,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import CartToast from "@/components/CartToast";
 import { CartProvider } from "@/lib/cart";
 import { getCategories } from "@/supabase/lib/queries";
-import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SITE_KEYWORDS } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     template: `%s – ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
   icons: { icon: "/icon.svg" },
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },

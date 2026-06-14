@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Cancel01Icon } from '@hugeicons/core-free-icons';
 
 interface AddCategoryDialogProps {
   isOpen: boolean;
@@ -63,7 +64,7 @@ export default function AddCategoryDialog({
             disabled={loading}
             className="p-1.5 text-gray-400 hover:text-gray-900 rounded-lg transition-colors"
           >
-            <X size={20} />
+            <HugeiconsIcon icon={Cancel01Icon} size={20} />
           </button>
         </div>
         <form onSubmit={handleSubmit} className="mt-6 space-y-5">

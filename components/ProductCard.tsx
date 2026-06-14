@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ShoppingBag, Check, X, Eye } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ShoppingBag01Icon, CheckIcon, Cancel01Icon, EyeIcon, WhatsappIcon } from '@hugeicons/core-free-icons';
 import { useCart } from "@/lib/cart";
 import { showCartToast } from "@/components/CartToast";
 import { WHATSAPP_LINK } from "@/lib/constants";
@@ -126,12 +126,12 @@ export default function ProductCard({ product }: { product: Product }) {
             >
               {inCart ? (
                 <>
-                  <Check className="w-4 h-4" />
+                  <HugeiconsIcon icon={CheckIcon} size={16} />
                   Added
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-4 h-4" />
+                  <HugeiconsIcon icon={ShoppingBag01Icon} size={16} />
                   Add to Cart
                 </>
               )}
@@ -155,7 +155,7 @@ export default function ProductCard({ product }: { product: Product }) {
               onClick={openPopup}
               className="hidden lg:inline-flex items-center gap-1 text-[11px] font-bold text-gray-900 uppercase tracking-[0.18em] border-b border-gray-900 pb-0.5 hover:opacity-60 transition-opacity duration-200 whitespace-nowrap cursor-pointer"
             >
-              <Eye className="w-3 h-3" />
+              <HugeiconsIcon icon={EyeIcon} size={12} />
               Quick View
             </button>
           </div>
@@ -175,12 +175,12 @@ export default function ProductCard({ product }: { product: Product }) {
           >
             {inCart ? (
               <>
-                <Check className="w-4 h-4" />
+                <HugeiconsIcon icon={CheckIcon} size={16} />
                 Added
               </>
             ) : (
               <>
-                <ShoppingBag className="w-4 h-4" />
+                <HugeiconsIcon icon={ShoppingBag01Icon} size={16} />
                 Add to Cart
               </>
             )}
@@ -202,7 +202,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 onClick={handleClose}
                 className="text-gray-400 hover:text-gray-900 rounded-lg transition-colors"
               >
-                <X size={20} />
+                <HugeiconsIcon icon={Cancel01Icon} size={20} />
               </button>
             </div>
 
@@ -295,12 +295,12 @@ export default function ProductCard({ product }: { product: Product }) {
               >
                 {inCart ? (
                   <>
-                    <Check className="w-4 h-4" />
+                    <HugeiconsIcon icon={CheckIcon} size={16} />
                     Added to Cart
                   </>
                 ) : (
                   <>
-                    <ShoppingBag className="w-4 h-4" />
+                    <HugeiconsIcon icon={ShoppingBag01Icon} size={16} />
                     Add to Cart
                   </>
                 )}
@@ -318,7 +318,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 }}
                 className="flex-1 flex items-center justify-center gap-2 py-3 text-xs font-bold tracking-wider uppercase transition-all duration-300 bg-[#25D366] text-white hover:bg-[#1da851] cursor-pointer"
               >
-                <FaWhatsapp className="w-4 h-4" />
+                <HugeiconsIcon icon={WhatsappIcon} size={16} />
                 Order
               </a>
             </div>

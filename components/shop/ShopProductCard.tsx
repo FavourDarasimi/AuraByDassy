@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { WhatsappIcon } from '@hugeicons/core-free-icons';
 import { Product } from "@/components/ProductCard";
 import { WHATSAPP_LINK } from "@/lib/constants";
 import { recordClick } from "@/lib/recordClick";
@@ -90,7 +91,7 @@ export default function ShopProductCard({ product }: { product: Product }) {
             recordClick({ productId: product.id, productName: product.name, sku: product.sku, source: "shop_card" });
           }}
         >
-          <FaWhatsapp className="w-4 h-4" />
+          <HugeiconsIcon icon={WhatsappIcon} size={16} />
           Order on WhatsApp
         </a>
       </div>

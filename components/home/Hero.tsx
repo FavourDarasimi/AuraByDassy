@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
-import { ShoppingBag } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ShoppingBag01Icon, WhatsappIcon } from '@hugeicons/core-free-icons';
 import { WHATSAPP_LINK } from "@/lib/constants";
 
 export default function Hero() {
@@ -54,7 +54,7 @@ export default function Hero() {
             href="/shop"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-white text-gray-900 text-sm font-bold tracking-wide uppercase hover:bg-gray-100 active:scale-95 transition-all duration-200 shadow-[0_0_24px_rgba(255,255,255,0.18)] whitespace-nowrap"
           >
-            <ShoppingBag className="w-4 h-4 shrink-0" />
+            <HugeiconsIcon icon={ShoppingBag01Icon} size={16} className="shrink-0" />
             Shop the Collection
           </Link>
           <a
@@ -63,7 +63,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-[#25D366] text-white text-sm font-bold tracking-wide uppercase hover:bg-[#1ebd5a] active:scale-95 transition-all duration-200 shadow-[0_0_24px_rgba(37,211,102,0.3)] whitespace-nowrap"
           >
-            <FaWhatsapp className="w-4 h-4 shrink-0" />
+            <HugeiconsIcon icon={WhatsappIcon} size={16} className="shrink-0" />
             Order on WhatsApp
           </a>
         </div>

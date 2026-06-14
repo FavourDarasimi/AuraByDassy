@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Plus, X, FolderPlus, PackagePlus } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { PlusSignIcon, Cancel01Icon, FolderAddIcon, PackageAdd01Icon } from '@hugeicons/core-free-icons';
 
 interface SpeedDialFabProps {
   onAddCategory: () => void;
@@ -37,7 +38,7 @@ export default function SpeedDialFab({
   const actions = [
     {
       label: "Add Category",
-      icon: FolderPlus,
+      icon: FolderAddIcon,
       onClick: () => {
         close();
         onAddCategory();
@@ -45,7 +46,7 @@ export default function SpeedDialFab({
     },
     {
       label: "Add Product",
-      icon: PackagePlus,
+      icon: PackageAdd01Icon,
       onClick: () => {
         close();
         onAddProduct();
@@ -72,7 +73,6 @@ export default function SpeedDialFab({
         {/* Mini action buttons */}
         <div className="flex flex-col items-end gap-3 mb-4">
           {actions.map((action, i) => {
-            const Icon = action.icon;
             return (
               <button
                 key={action.label}
@@ -90,7 +90,7 @@ export default function SpeedDialFab({
                 }}
                 aria-label={action.label}
               >
-                <Icon size={16} className="shrink-0 text-gray-900" />
+                <HugeiconsIcon icon={action.icon} size={16} className="shrink-0 text-gray-900" />
                 <span className="whitespace-nowrap">{action.label}</span>
               </button>
             );
@@ -108,11 +108,13 @@ export default function SpeedDialFab({
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
-          <Plus
+          <HugeiconsIcon
+            icon={PlusSignIcon}
             size={24}
             className={`absolute transition-transform duration-300 ${open ? "rotate-90 opacity-0" : "rotate-0 opacity-100"}`}
           />
-          <X
+          <HugeiconsIcon
+            icon={Cancel01Icon}
             size={24}
             className={`absolute transition-transform duration-300 ${open ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"}`}
           />

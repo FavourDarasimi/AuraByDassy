@@ -2,7 +2,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { supabaseAdmin } from "@/supabase/lib/client";
-import { Package, CheckCircle, ShoppingCart } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { PackageIcon, CheckmarkCircle01Icon, ShoppingCart01Icon } from '@hugeicons/core-free-icons';
 
 export const dynamic = "force-dynamic";
 
@@ -62,14 +63,14 @@ export default async function AdminDashboardPage() {
     {
       label: "Total Products",
       value: stats.totalCount,
-      icon: Package,
+      icon: PackageIcon,
       color: "text-gray-900",
       text: "All items listed in your store",
     },
     {
       label: "Available Products",
       value: stats.availableCount,
-      icon: CheckCircle,
+      icon: CheckmarkCircle01Icon,
       color: "text-emerald-600",
       text: "Items currently in stock and ready to sell",
     },
@@ -77,7 +78,7 @@ export default async function AdminDashboardPage() {
       label: "Order Clicks",
       value: stats.orderCount,
       secondary: `${stats.todayOrders} today`,
-      icon: ShoppingCart,
+      icon: ShoppingCart01Icon,
       color: "text-amber-600",
       text: "Times customers tapped Order on WhatsApp",
     },
@@ -109,7 +110,7 @@ export default async function AdminDashboardPage() {
               <div
                 className={`${card.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}
               >
-                <card.icon size={24} />
+                <HugeiconsIcon icon={card.icon} size={24} />
               </div>
             </div>
             <div className="flex items-baseline gap-2">

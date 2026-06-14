@@ -3,7 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ShoppingBag01Icon } from '@hugeicons/core-free-icons';
 import Logo from "@/components/Logo";
 import { useCart } from "@/lib/cart";
 
@@ -137,7 +138,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
               className="relative p-2.5 sm:p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100"
               aria-label="Cart"
             >
-              <ShoppingBag className="h-5 w-5" />
+              <HugeiconsIcon icon={ShoppingBag01Icon} className="w-5 h-5" />
               <CartBadge />
             </Link>
 

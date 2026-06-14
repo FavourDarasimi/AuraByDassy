@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { Pencil, Trash2 } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react';
+import { PencilEdit01Icon, Delete02Icon } from '@hugeicons/core-free-icons';
 
 interface Product {
   id: string
@@ -55,10 +56,10 @@ function ProductCardRow({ product, onEdit, onDelete, onSelect }: { product: Prod
       </div>
       <div className="flex items-center gap-1 shrink-0">
         <button onClick={(e) => { e.stopPropagation(); onEdit(product); }} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 active:scale-90" title="Edit">
-          <Pencil size={16} />
+          <HugeiconsIcon icon={PencilEdit01Icon} size={16} />
         </button>
         <button onClick={(e) => { e.stopPropagation(); onDelete(product); }} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-90" title="Delete">
-          <Trash2 size={16} />
+          <HugeiconsIcon icon={Delete02Icon} size={16} />
         </button>
       </div>
     </div>
@@ -159,14 +160,14 @@ export default function ProductsTable({
                         className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 active:scale-90"
                         title="Edit"
                       >
-                        <Pencil size={16} />
+                        <HugeiconsIcon icon={PencilEdit01Icon} size={16} />
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); onDelete(product); }}
                         className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-90"
                         title="Delete"
                       >
-                        <Trash2 size={16} />
+                        <HugeiconsIcon icon={Delete02Icon} size={16} />
                       </button>
                     </div>
                   </td>

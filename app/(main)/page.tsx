@@ -4,7 +4,7 @@ import FeaturedProducts from "@/components/home/FeaturedProducts";
 import HowItWorks from "@/components/home/HowItWorks";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import WhatsAppCTA from "@/components/home/WhatsAppCTA";
-import { SITE_NAME } from "@/lib/seo";
+import { SITE_NAME, SITE_KEYWORDS } from "@/lib/seo";
 
 export const dynamic = 'force-dynamic';
 
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Home",
   description:
     "Discover premium fashion at AuraByDassy. Shop the latest in clothing, accessories, shoes, and perfumes. Curated in Nigeria, delivered to your door.",
+  keywords: [...SITE_KEYWORDS, "homepage", "featured products Nigeria", "latest fashion collection"],
   openGraph: {
     title: `${SITE_NAME} – Premium Fashion`,
     description:
