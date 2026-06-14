@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ShoppingBag, Check, X, Eye } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useCart } from "@/lib/cart";
 import { showCartToast } from "@/components/CartToast";
 import { WHATSAPP_LINK } from "@/lib/constants";
+import { recordClick } from "@/lib/recordClick";
 
 export type Product = {
   id: string;
@@ -20,6 +22,7 @@ export type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
+  const router = useRouter();
   const imageUrl = product.image_url;
   const isAvailable = product.available !== false;
   const { addItem, isInCart } = useCart();
@@ -60,12 +63,22 @@ export default function ProductCard({ product }: { product: Product }) {
 
   const openPopup = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      router.push(`/shop/${product.id}`);
+      return;
+    }
     setIsPopupOpen(true);
+  };
+
+  const handleCardClick = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      router.push(`/shop/${product.id}`);
+    }
   };
 
   return (
     <>
-      <article className="group flex flex-col bg-white">
+      <article onClick={handleCardClick} className="group flex flex-col bg-white">
         {/* ── Image container ── */}
         <div className="relative w-full aspect-[4/5] bg-[#f5f5f5] overflow-hidden">
           {imageUrl ? (
@@ -140,7 +153,7 @@ export default function ProductCard({ product }: { product: Product }) {
             </span>
             <button
               onClick={openPopup}
-              className="inline-flex items-center gap-1 text-[11px] font-bold text-gray-900 uppercase tracking-[0.18em] border-b border-gray-900 pb-0.5 hover:opacity-60 transition-opacity duration-200 whitespace-nowrap cursor-pointer"
+              className="hidden lg:inline-flex items-center gap-1 text-[11px] font-bold text-gray-900 uppercase tracking-[0.18em] border-b border-gray-900 pb-0.5 hover:opacity-60 transition-opacity duration-200 whitespace-nowrap cursor-pointer"
             >
               <Eye className="w-3 h-3" />
               Quick View
@@ -183,13 +196,15 @@ export default function ProductCard({ product }: { product: Product }) {
             onClick={handleClose}
           />
           <div className="relative bg-white rounded-xl shadow-xl p-5 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto motion-safe:animate-scale-reveal">
-            {/* Close button */}
-            <button
-              onClick={handleClose}
-              className="absolute top-0 right-0 p-1.5 text-gray-400 hover:text-gray-900 rounded-lg transition-colors z-10"
-            >
-              <X size={20} />
-            </button>
+            <div className="sticky top-0 bg-white z-10 flex items-center justify-between mb-2">
+              <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider">Product Details</h2>
+              <button
+                onClick={handleClose}
+                className="text-gray-400 hover:text-gray-900 rounded-lg transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
 
             {/* Image */}
             <div className="relative w-full aspect-[4/3] bg-[#f5f5f5] rounded-lg overflow-hidden mb-5">
@@ -297,7 +312,10 @@ export default function ProductCard({ product }: { product: Product }) {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  recordClick({ productId: product.id, productName: product.name, sku: product.sku, source: "product_card" });
+                }}
                 className="flex-1 flex items-center justify-center gap-2 py-3 text-xs font-bold tracking-wider uppercase transition-all duration-300 bg-[#25D366] text-white hover:bg-[#1da851] cursor-pointer"
               >
                 <FaWhatsapp className="w-4 h-4" />

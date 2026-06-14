@@ -13,12 +13,22 @@ export const metadata: Metadata = {
 
 async function getDashboardStats() {
   const sb = supabaseAdmin as any;
-  const [totalProducts, availableProducts] = await Promise.all([
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const [totalProducts, availableProducts, totalOrders, todayOrders] = await Promise.all([
     sb.from("products").select("*", { count: "exact", head: true }),
     sb
       .from("products")
       .select("*", { count: "exact", head: true })
       .eq("available", true),
+    sb
+      .from("order_clicks")
+      .select("*", { count: "exact", head: true }),
+    sb
+      .from("order_clicks")
+      .select("*", { count: "exact", head: true })
+      .gte("created_at", today.toISOString()),
   ]);
 
   const { data: recentProducts } = await sb
@@ -30,6 +40,8 @@ async function getDashboardStats() {
   return {
     totalCount: totalProducts.count || 0,
     availableCount: availableProducts.count || 0,
+    orderCount: totalOrders.count || 0,
+    todayOrders: todayOrders.count || 0,
     recentProducts: (recentProducts || []) as Array<{
       id: string;
       name: string;
@@ -62,11 +74,12 @@ export default async function AdminDashboardPage() {
       text: "Items currently in stock and ready to sell",
     },
     {
-      label: "Total Orders",
-      value: stats.availableCount,
+      label: "Order Clicks",
+      value: stats.orderCount,
+      secondary: `${stats.todayOrders} today`,
       icon: ShoppingCart,
       color: "text-amber-600",
-      text: "Number of orders placed by customers",
+      text: "Times customers tapped Order on WhatsApp",
     },
   ];
 
@@ -99,7 +112,12 @@ export default async function AdminDashboardPage() {
                 <card.icon size={24} />
               </div>
             </div>
-            <p className="text-2xl font-bold text-gray-900">{card.value}</p>
+            <div className="flex items-baseline gap-2">
+              <p className="text-2xl font-bold text-gray-900">{card.value}</p>
+              {card.secondary && (
+                <p className="text-sm font-medium text-gray-400">{card.secondary}</p>
+              )}
+            </div>
             <p className="text-xs text-gray-500">{card.text}</p>
           </div>
         ))}

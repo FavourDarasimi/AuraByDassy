@@ -25,6 +25,18 @@ export interface Database {
           referencedColumns: ['id']
         }>
       }
+      order_clicks: {
+        Row: OrderClick
+        Insert: Omit<OrderClick, 'id' | 'created_at'>
+        Update: Partial<Omit<OrderClick, 'id'>>
+        Relationships: Array<{
+          foreignKeyName: 'order_clicks_product_id_fkey'
+          columns: ['product_id']
+          isOneToOne?: false
+          referencedRelation: 'products'
+          referencedColumns: ['id']
+        }>
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
@@ -51,4 +63,14 @@ export interface Product {
 
 export interface ProductWithCategory extends Product {
   category: Pick<Category, 'name'>
+}
+
+export interface OrderClick {
+  id: string
+  product_id: string | null
+  product_name: string
+  sku: string
+  source: string
+  metadata: Record<string, unknown>
+  created_at: string
 }

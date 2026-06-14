@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import FilterSidebar, { FilterState } from "@/components/shop/FilterSidebar";
 import ProductCard, { Product } from "@/components/ProductCard";
-import { SlidersHorizontal, X, ChevronDown, PackageSearch } from "lucide-react";
+import { SlidersHorizontal, X, ChevronDown, PackageSearch, ChevronLeft, ChevronRight } from "lucide-react";
 
 type CategoryWithCount = {
   name: string;
@@ -25,6 +25,7 @@ const SORT_OPTIONS = [
 
 const PRICE_MIN = 0;
 const PRICE_MAX = 100000;
+const PAGE_SIZE = 12;
 
 function buildCategoryTree(
   allCategories: { id: string; name: string }[],
@@ -69,6 +70,7 @@ export default function ShopClient({ products, allCategories }: Props) {
   const [sortOpen, setSortOpen]       = useState(false);
   const [mobileOpen, setMobileOpen]   = useState(false);
   const [loading, setLoading]         = useState(true);
+  const [page, setPage]               = useState(1);
 
   // Simulate brief loading skeleton on mount
   useEffect(() => {
@@ -120,6 +122,18 @@ export default function ShopClient({ products, allCategories }: Props) {
 
     return result;
   }, [products, filters, queryParam, sort]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
+
+  const paginatedProducts = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    return filteredProducts.slice(start, start + PAGE_SIZE);
+  }, [filteredProducts, page]);
+
+  // Reset to page 1 when filters or sort change
+  useEffect(() => {
+    setPage(1);
+  }, [filters, queryParam, sort]);
 
   // ── Applied chips ──────────────────────────────────────────
   const appliedChips = useMemo(() => {
@@ -318,12 +332,53 @@ export default function ShopClient({ products, allCategories }: Props) {
                   <SkeletonCard key={i} />
                 ))}
               </div>
-            ) : filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-6 sm:gap-x-4 sm:gap-y-8 lg:gap-x-6">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+            ) : paginatedProducts.length > 0 ? (
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-6 sm:gap-x-4 sm:gap-y-8 lg:gap-x-6">
+                  {paginatedProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 mt-12 pb-4">
+                    <button
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      disabled={page <= 1}
+                      className="flex items-center gap-1 px-3 py-2 text-xs font-semibold uppercase tracking-widest border border-gray-200 text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                      Prev
+                    </button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                        <button
+                          key={p}
+                          onClick={() => setPage(p)}
+                          className={`w-8 h-8 text-xs font-semibold rounded transition-colors ${
+                            p === page
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-500 hover:bg-gray-100"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                      disabled={page >= totalPages}
+                      className="flex items-center gap-1 px-3 py-2 text-xs font-semibold uppercase tracking-widest border border-gray-200 text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                    >
+                      Next
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               /* Empty state */
               <div className="flex flex-col items-center justify-center py-28 text-center">

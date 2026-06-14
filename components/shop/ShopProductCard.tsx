@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { Product } from "@/components/ProductCard";
 import { WHATSAPP_LINK } from "@/lib/constants";
+import { recordClick } from "@/lib/recordClick";
 
 const COLOR_MAP: Record<string, string> = {
   black: "#1a1a1a",
@@ -84,7 +85,10 @@ export default function ShopProductCard({ product }: { product: Product }) {
           target="_blank"
           rel="noopener noreferrer"
           className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 py-3 bg-[#25D366]/95 text-white text-xs font-bold tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation();
+            recordClick({ productId: product.id, productName: product.name, sku: product.sku, source: "shop_card" });
+          }}
         >
           <FaWhatsapp className="w-4 h-4" />
           Order on WhatsApp

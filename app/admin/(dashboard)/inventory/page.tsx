@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Search, X, Plus } from "lucide-react";
+import Image from "next/image";
+import { Search, X, Plus, Pencil, Trash2 } from "lucide-react";
 import ProductsTable from "@/components/admin/ProductsTable";
 import EditProductDialog from "@/components/admin/EditProductDialog";
 import DeleteConfirmDialog from "@/components/admin/DeleteConfirmDialog";
@@ -43,6 +44,7 @@ export default function InventoryPage() {
   const [deleteTarget, setDeleteTarget] = useState<Product | null>(null);
   const [editTarget, setEditTarget] = useState<Product | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [detailTarget, setDetailTarget] = useState<Product | null>(null);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -101,6 +103,23 @@ export default function InventoryPage() {
   const handleCategoryFilter = (categoryId: string) => {
     setFilterCategory(categoryId);
     setPage(1);
+  };
+
+  const handleSelect = (product: Product) => {
+    setDetailTarget(product);
+  };
+
+  const handleEditFromDetail = () => {
+    if (!detailTarget) return;
+    setEditTarget(detailTarget);
+    setShowEditProduct(true);
+    setDetailTarget(null);
+  };
+
+  const handleDeleteFromDetail = () => {
+    if (!detailTarget) return;
+    setDeleteTarget(detailTarget);
+    setDetailTarget(null);
   };
 
   const handleEdit = (product: Product) => {
@@ -248,11 +267,111 @@ export default function InventoryPage() {
           pageSize={pageSize}
           totalPages={totalPages}
           onPageChange={setPage}
+          onSelect={handleSelect}
           onEdit={handleEdit}
           onDelete={handleDelete}
           loading={loading}
         />
       </div>
+
+      {/* Product Detail Slideover */}
+      {detailTarget && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setDetailTarget(null)}
+          />
+          <div className="relative w-full max-w-lg bg-white shadow-2xl overflow-y-auto motion-safe:animate-slide-in-right">
+            {/* Header */}
+            <div className="sticky top-0 bg-white z-10 flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider">Product Details</h2>
+              <button
+                onClick={() => setDetailTarget(null)}
+                className="p-1.5 text-gray-400 hover:text-gray-900 rounded-lg transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-6">
+              {/* Image */}
+              <div className="relative w-full aspect-[16/10] bg-gray-50 rounded-xl overflow-hidden ring-1 ring-black/5">
+                {detailTarget.image_url ? (
+                  <Image src={detailTarget.image_url} alt={detailTarget.name} fill className="object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-300">
+                    <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              {/* Name */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Product Name</p>
+                <p className="text-lg font-bold text-gray-900">{detailTarget.name}</p>
+              </div>
+
+              {/* Price */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Price</p>
+                <p className="text-xl font-bold text-gray-900">₦{detailTarget.price.toLocaleString()}</p>
+              </div>
+
+              {/* SKU */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">SKU</p>
+                <p className="text-sm font-mono text-gray-700">{detailTarget.sku}</p>
+              </div>
+
+              {/* Category */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Category</p>
+                <p className="text-sm text-gray-700">{detailTarget.category?.name || "Uncategorized"}</p>
+              </div>
+
+              {/* Availability */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Status</p>
+                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                  detailTarget.available
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'bg-red-50 text-red-700'
+                }`}>
+                  {detailTarget.available ? 'Available' : 'Unavailable'}
+                </span>
+              </div>
+
+              {/* Description */}
+              {detailTarget.description && (
+                <div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Description</p>
+                  <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{detailTarget.description}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Actions */}
+            <div className="sticky bottom-0 bg-white border-t border-gray-200 px-6 py-4 flex gap-3">
+              <button
+                onClick={handleEditFromDetail}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-wider bg-gray-900 text-white rounded-lg hover:bg-black transition-colors"
+              >
+                <Pencil size={14} />
+                Edit Product
+              </button>
+              <button
+                onClick={handleDeleteFromDetail}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-wider bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+              >
+                <Trash2 size={14} />
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <EditProductDialog
         isOpen={showEditProduct}

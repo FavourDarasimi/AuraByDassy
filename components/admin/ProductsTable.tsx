@@ -23,14 +23,15 @@ interface ProductsTableProps {
   pageSize: number
   totalPages: number
   onPageChange: (page: number) => void
+  onSelect: (product: Product) => void
   onEdit: (product: Product) => void
   onDelete: (product: Product) => void
   loading?: boolean
 }
 
-function ProductCardRow({ product, onEdit, onDelete }: { product: Product; onEdit: (p: Product) => void; onDelete: (p: Product) => void }) {
+function ProductCardRow({ product, onEdit, onDelete, onSelect }: { product: Product; onEdit: (p: Product) => void; onDelete: (p: Product) => void; onSelect: (p: Product) => void }) {
   return (
-    <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-white hover:border-gray-200 transition-colors">
+    <div onClick={() => onSelect(product)} className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-white hover:border-gray-200 transition-colors cursor-pointer">
       <div className="relative w-12 h-12 rounded-lg bg-gray-100 overflow-hidden shrink-0">
         {product.image_url ? (
           <Image src={product.image_url} alt={product.name} fill className="object-cover" />
@@ -53,10 +54,10 @@ function ProductCardRow({ product, onEdit, onDelete }: { product: Product; onEdi
         </div>
       </div>
       <div className="flex items-center gap-1 shrink-0">
-        <button onClick={() => onEdit(product)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 active:scale-90" title="Edit">
+        <button onClick={(e) => { e.stopPropagation(); onEdit(product); }} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 active:scale-90" title="Edit">
           <Pencil size={16} />
         </button>
-        <button onClick={() => onDelete(product)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-90" title="Delete">
+        <button onClick={(e) => { e.stopPropagation(); onDelete(product); }} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-90" title="Delete">
           <Trash2 size={16} />
         </button>
       </div>
@@ -71,6 +72,7 @@ export default function ProductsTable({
   pageSize,
   totalPages,
   onPageChange,
+  onSelect,
   onEdit,
   onDelete,
   loading,
@@ -118,7 +120,8 @@ export default function ProductsTable({
               products.map((product, index) => (
                 <tr
                   key={product.id}
-                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors motion-safe:animate-fade-in-up"
+                  onClick={() => onSelect(product)}
+                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors motion-safe:animate-fade-in-up cursor-pointer"
                   style={{ animationDelay: `${index * 0.04}s`, animationFillMode: "backwards" }}
                 >
                   <td className="py-3 px-4">
@@ -152,14 +155,14 @@ export default function ProductsTable({
                   <td className="py-3 px-4">
                     <div className="flex items-center justify-end gap-2">
                       <button
-                        onClick={() => onEdit(product)}
+                        onClick={(e) => { e.stopPropagation(); onEdit(product); }}
                         className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 active:scale-90"
                         title="Edit"
                       >
                         <Pencil size={16} />
                       </button>
                       <button
-                        onClick={() => onDelete(product)}
+                        onClick={(e) => { e.stopPropagation(); onDelete(product); }}
                         className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-90"
                         title="Delete"
                       >
@@ -193,7 +196,7 @@ export default function ProductsTable({
         ) : (
           products.map((product, index) => (
             <div key={product.id} className="motion-safe:animate-fade-in-up" style={{ animationDelay: `${index * 0.04}s`, animationFillMode: "backwards" }}>
-              <ProductCardRow product={product} onEdit={onEdit} onDelete={onDelete} />
+              <ProductCardRow product={product} onEdit={onEdit} onDelete={onDelete} onSelect={onSelect} />
             </div>
           ))
         )}

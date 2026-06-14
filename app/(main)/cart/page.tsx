@@ -6,6 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { ShoppingBag, Trash2, Minus, Plus, ArrowLeft } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { WHATSAPP_LINK } from "@/lib/constants";
+import { recordClick } from "@/lib/recordClick";
 
 export default function CartPage() {
   const { items, itemCount, total, removeItem, updateQuantity, clearCart } =
@@ -27,6 +28,10 @@ export default function CartPage() {
 
   const handleWhatsAppOrder = () => {
     if (items.length === 0) return;
+    recordClick({
+      productName: items.map((i) => i.name).join(", "),
+      source: "cart",
+    });
     const url = WHATSAPP_LINK(buildWhatsAppMessage());
     window.open(url, "_blank", "noopener,noreferrer");
     clearCart();

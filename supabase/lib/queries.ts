@@ -63,5 +63,35 @@ export async function getProductById(id: string): Promise<ProductWithCategory | 
   return data as unknown as ProductWithCategory
 }
 
+export async function getOrderClickCount(): Promise<number> {
+  const { count, error } = await supabase
+    .from('order_clicks')
+    .select('*', { count: 'exact', head: true })
+
+  if (error) {
+    console.error('Error fetching order click count:', error)
+    return 0
+  }
+
+  return count || 0
+}
+
+export async function getTodayOrderClickCount(): Promise<number> {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const { count, error } = await supabase
+    .from('order_clicks')
+    .select('*', { count: 'exact', head: true })
+    .gte('created_at', today.toISOString())
+
+  if (error) {
+    console.error('Error fetching today order click count:', error)
+    return 0
+  }
+
+  return count || 0
+}
+
 export const productCacheOptions = { next: { revalidate: 30 } }
 export const categoryCacheOptions = { next: { revalidate: 60 } }
