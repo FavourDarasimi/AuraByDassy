@@ -20,11 +20,13 @@ export function showCartToast(productName: string) {
 
 export default function CartToast() {
   const [visible, setVisible] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [name, setName] = useState("");
 
   useEffect(() => {
     const handler = (e: CustomEvent<ToastEvent>) => {
       setName(e.detail.productName);
+      setClosing(false);
       setVisible(true);
     };
     window.addEventListener("cart-toast", handler as EventListener);
@@ -33,15 +35,24 @@ export default function CartToast() {
   }, []);
 
   useEffect(() => {
-    if (!visible) return;
-    const t = setTimeout(() => setVisible(false), 2500);
+    if (!visible || closing) return;
+    const t = setTimeout(() => setClosing(true), 2200);
     return () => clearTimeout(t);
-  }, [visible]);
+  }, [visible, closing]);
+
+  const handleAnimationEnd = () => {
+    if (closing) setVisible(false);
+  };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-[100] animate-fade-in-up">
+    <div
+      className={`fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-[100] ${
+        closing ? "motion-safe:animate-cart-out" : "motion-safe:animate-cart-in"
+      }`}
+      onAnimationEnd={handleAnimationEnd}
+    >
       <div className="flex items-center gap-4 md:gap-2.5 bg-gray-900 text-white px-5 py-3 rounded-full shadow-2xl text-sm font-medium">
         <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white/20">
           <HugeiconsIcon icon={CheckIcon} size={12} />

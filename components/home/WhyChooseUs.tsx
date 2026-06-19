@@ -1,3 +1,5 @@
+import ScrollReveal from "@/components/ScrollReveal";
+
 export default function WhyChooseUs() {
   const reasons = [
     {
@@ -44,36 +46,37 @@ export default function WhyChooseUs() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <p className="text-[10px] font-bold text-gray-400 tracking-[0.25em] uppercase mb-3">
-            Our Promise
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
-            Why Choose AuraByDassy?
-          </h2>
-          <div className="w-10 h-[3px] bg-gray-900 mx-auto mt-4" />
-        </div>
+        <ScrollReveal direction="up" as="div">
+          <div className="text-center mb-12 sm:mb-16">
+            <p className="text-[10px] font-bold text-gray-400 tracking-[0.25em] uppercase mb-3">
+              Our Promise
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
+              Why Choose AuraByDassy?
+            </h2>
+            <div className="w-10 h-[3px] bg-gray-900 mx-auto mt-4" />
+          </div>
+        </ScrollReveal>
 
         {/* Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {reasons.map((reason, index) => (
-            <div
-              key={index}
-              className="group flex flex-col items-center text-center p-5 sm:p-8 border border-gray-100 hover:border-gray-900 hover:bg-gray-900 transition-all duration-300 cursor-default"
-            >
-              {/* Icon */}
-              <div className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center border border-gray-200 group-hover:border-white text-gray-700 group-hover:text-white mb-5 sm:mb-6 transition-all duration-300 flex-shrink-0">
-                {reason.icon}
-              </div>
+            <ScrollReveal key={index} direction="up" delay={index * 100} duration={600} as="div">
+              <div className="group flex flex-col items-center text-center p-5 sm:p-8 border border-gray-100 hover:border-gray-900 hover:bg-gray-900 transition-all duration-300 cursor-default">
+                {/* Icon */}
+                <div className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center border border-gray-200 group-hover:border-white text-gray-700 group-hover:text-white mb-5 sm:mb-6 transition-all duration-300 flex-shrink-0">
+                  {reason.icon}
+                </div>
 
-              {/* Text */}
-              <h3 className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-white uppercase tracking-wide mb-2 sm:mb-3 transition-colors duration-300">
-                {reason.title}
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed transition-colors duration-300">
-                {reason.description}
-              </p>
-            </div>
+                {/* Text */}
+                <h3 className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-white uppercase tracking-wide mb-2 sm:mb-3 transition-colors duration-300">
+                  {reason.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed transition-colors duration-300">
+                  {reason.description}
+                </p>
+              </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

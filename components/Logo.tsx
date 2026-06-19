@@ -20,26 +20,43 @@ export default function Logo({
           d="M20 2L38 20L20 38L2 20Z"
           stroke="currentColor"
           strokeWidth="1.2"
-          className="text-gray-900"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-gray-900 motion-safe:animate-[logo-draw_1.5s_ease-out_forwards]"
+          strokeDasharray="100"
+          strokeDashoffset="100"
+          style={{ animationDelay: "0ms" }}
         />
         <path
           d="M20 8L32 20L20 32L8 20Z"
           stroke="currentColor"
           strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           opacity="0.3"
+          className="motion-safe:animate-[logo-draw_1.2s_ease-out_forwards]"
+          strokeDasharray="80"
+          strokeDashoffset="80"
+          style={{ animationDelay: "300ms" }}
         />
         <path
           d="M20 14L26 20L20 26L14 20Z"
           stroke="currentColor"
           strokeWidth="0.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           opacity="0.15"
+          className="motion-safe:animate-[logo-draw_1s_ease-out_forwards]"
+          strokeDasharray="50"
+          strokeDashoffset="50"
+          style={{ animationDelay: "600ms" }}
         />
       </svg>
     </span>
   );
 
   const wordmark = collapsed ? null : (
-    <span className="tracking-widest  text-lg sm:text-xl font-semibold tracking-tight text-gray-900 leading-none">
+    <span className="text-lg sm:text-xl font-semibold tracking-tight text-gray-900 leading-none">
       AuraByDassy
     </span>
   );

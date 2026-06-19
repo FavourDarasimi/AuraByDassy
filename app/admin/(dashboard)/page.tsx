@@ -4,6 +4,7 @@ import Image from "next/image";
 import { supabaseAdmin } from "@/supabase/lib/client";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { PackageIcon, CheckmarkCircle01Icon, ShoppingCart01Icon } from '@hugeicons/core-free-icons';
+import ScrollReveal from "@/components/ScrollReveal";
 
 export const dynamic = "force-dynamic";
 
@@ -95,13 +96,13 @@ export default async function AdminDashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
         {cards.map((card, index) => (
-          <div
+          <ScrollReveal
             key={card.label}
-            className="group bg-white rounded-xl border border-gray-200 p-6 space-y-1 motion-safe:animate-fade-in-up hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-            style={{
-              animationDelay: `${index * 0.1}s`,
-              animationFillMode: "backwards",
-            }}
+            direction="up"
+            delay={index * 100}
+            duration={500}
+            as="div"
+            className="group bg-white rounded-xl border border-gray-200 p-6 space-y-1 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
           >
             <div className="flex justify-between items-center">
               <p className="text-xs font-semibold text-gray-500">
@@ -120,13 +121,16 @@ export default async function AdminDashboardPage() {
               )}
             </div>
             <p className="text-xs text-gray-500">{card.text}</p>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
 
-      <div
-        className="bg-white rounded-xl border border-gray-200 motion-safe:animate-fade-in-up"
-        style={{ animationDelay: "0.3s", animationFillMode: "backwards" }}
+      <ScrollReveal
+        direction="up"
+        delay={300}
+        duration={600}
+        as="div"
+        className="bg-white rounded-xl border border-gray-200"
       >
         <div className="px-6 py-4  ">
           <h2 className="text-xl font-semibold text-gray-900">
@@ -218,7 +222,7 @@ export default async function AdminDashboardPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </ScrollReveal>
     </div>
   );
 }

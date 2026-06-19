@@ -57,18 +57,19 @@ export default function AdminSidebar() {
       </div>
 
       <nav className="flex-1 p-2 space-y-4 mt-8">
-        {navItems.map((item) => {
+        {navItems.map((item, index) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-base font-medium transition-all duration-200 active:scale-[0.97] ${
+              className={`motion-safe:animate-fade-in-up flex items-center gap-3 px-3 py-2.5 rounded-lg text-base font-medium transition-all duration-200 active:scale-[0.97] ${
                 isActive
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
               } ${collapsed ? "justify-center" : ""} ${collapsed && isActive ? "ring-1 ring-gray-300" : ""}`}
               title={collapsed ? item.label : undefined}
+              style={{ animationDelay: `${index * 100}ms`, animationFillMode: "backwards" }}
             >
               <HugeiconsIcon icon={item.icon} size={20} className="shrink-0" />
               {!collapsed && <span>{item.label}</span>}

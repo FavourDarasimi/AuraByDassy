@@ -8,6 +8,7 @@ import { WHATSAPP_LINK } from "@/lib/constants";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { WhatsappIcon } from '@hugeicons/core-free-icons';
 import AddToCartButton from "./AddToCartButton";
+import ScrollReveal from "@/components/ScrollReveal";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -41,7 +42,9 @@ export default async function ProductDetailPage({ params }: Props) {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-xs text-gray-500 uppercase tracking-[0.2em] mb-10">
+        <nav
+          className="flex items-center gap-2 text-xs text-gray-500 uppercase tracking-[0.2em] mb-10 motion-safe:animate-slide-right"
+        >
           <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
           <span className="text-gray-300">/</span>
           <Link href="/shop" className="hover:text-gray-900 transition-colors">Shop</Link>
@@ -51,7 +54,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
           {/* Image */}
-          <div className="relative w-full aspect-[4/5] bg-gray-50 rounded-xl overflow-hidden">
+          <ScrollReveal direction="scale" duration={800} as="div" className="relative w-full aspect-[4/5] bg-gray-50 rounded-xl overflow-hidden">
             {product.image_url ? (
               <Image
                 src={product.image_url}
@@ -68,27 +71,39 @@ export default async function ProductDetailPage({ params }: Props) {
                 </svg>
               </div>
             )}
-          </div>
+          </ScrollReveal>
 
           {/* Details */}
           <div className="flex flex-col justify-center">
             {/* Category */}
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.25em] mb-3">
+            <p
+              className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.25em] mb-3 motion-safe:animate-hero-fade-in"
+              style={{ animationDelay: "200ms", animationFillMode: "backwards" }}
+            >
               {product.category?.name || "Uncategorized"}
             </p>
 
             {/* Name */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+            <h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight motion-safe:animate-hero-fade-in"
+              style={{ animationDelay: "400ms", animationFillMode: "backwards" }}
+            >
               {product.name}
             </h1>
 
             {/* Price */}
-            <p className="text-2xl sm:text-3xl font-bold text-gray-900 mt-4">
+            <p
+              className="text-2xl sm:text-3xl font-bold text-gray-900 mt-4 motion-safe:animate-hero-fade-in"
+              style={{ animationDelay: "600ms", animationFillMode: "backwards" }}
+            >
               ₦{product.price?.toLocaleString()}
             </p>
 
             {/* SKU + Availability */}
-            <div className="flex items-center gap-4 mt-4">
+            <div
+              className="flex items-center gap-4 mt-4 motion-safe:animate-hero-fade-in"
+              style={{ animationDelay: "700ms", animationFillMode: "backwards" }}
+            >
               <span className="text-xs text-gray-500 font-mono">SKU: {product.sku}</span>
               <span
                 className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider ${
@@ -103,7 +118,10 @@ export default async function ProductDetailPage({ params }: Props) {
 
             {/* Description */}
             {product.description && (
-              <div className="mt-6 pt-6 border-t border-gray-100">
+              <div
+                className="mt-6 pt-6 border-t border-gray-100 motion-safe:animate-hero-fade-in"
+                style={{ animationDelay: "800ms", animationFillMode: "backwards" }}
+              >
                 <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.18em] mb-3">
                   Description
                 </p>
@@ -114,7 +132,10 @@ export default async function ProductDetailPage({ params }: Props) {
             )}
 
             {/* Actions */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <div
+              className="mt-8 flex flex-col sm:flex-row gap-3 motion-safe:animate-hero-fade-in"
+              style={{ animationDelay: "900ms", animationFillMode: "backwards" }}
+            >
               <AddToCartButton product={product} />
               <a
                 href={WHATSAPP_LINK(whatsappMessage)}

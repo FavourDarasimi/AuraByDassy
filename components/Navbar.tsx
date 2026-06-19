@@ -15,6 +15,7 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -36,6 +37,14 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
       setSearchQuery("");
     }
   };
+
+  // Track scroll for shadow effect
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close search when clicking outside
   useEffect(() => {
@@ -64,7 +73,9 @@ const Navbar = ({ categories = [] }: { categories?: Category[] }) => {
   }, [isSearchOpen]);
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md shadow-sm">
+    <nav className={`sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md transition-shadow duration-300 ${
+      scrolled ? "shadow-lg" : "shadow-sm"
+    }`}>
       <div className="max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center min-h-16 md:min-h-18">
           {/* Logo — left */}

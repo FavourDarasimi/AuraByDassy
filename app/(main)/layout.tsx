@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import CartToast from "@/components/CartToast";
+import PageTransition from "@/components/PageTransition";
 import { CartProvider } from "@/lib/cart";
 import { getCategories } from "@/supabase/lib/queries";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SITE_KEYWORDS } from "@/lib/seo";
@@ -80,9 +81,9 @@ export default async function RootLayout({
         />
         <CartProvider>
           <Navbar categories={categories} />
-          <main className="flex-grow">
+          <PageTransition>
             {children}
-          </main>
+          </PageTransition>
           <Footer />
           <FloatingWhatsApp />
           <CartToast />

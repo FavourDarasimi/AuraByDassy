@@ -83,14 +83,15 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
         {catOpen && (
           <div className="mt-4 space-y-1">
             {categories.length === 0 && (
-              <p className="text-xs lg:text-sm text-gray-400 italic">No categories found</p>
+              <p className="text-xs lg:text-sm text-gray-400 italic motion-safe:animate-fade-in">No categories found</p>
             )}
-            {categories.map((cat) => {
+            {categories.map((cat, index) => {
               const checked = filters.categories.includes(cat.name);
               return (
                 <label
                   key={cat.name}
-                  className="flex items-center justify-between cursor-pointer py-1.5 group/item"
+                  className="flex items-center justify-between cursor-pointer py-1.5 group/item motion-safe:animate-fade-in"
+                  style={{ animationDelay: `${index * 30}ms`, animationFillMode: "backwards" }}
                 >
                   <div className="flex items-center gap-2.5">
                     {/* Custom checkbox */}
@@ -143,7 +144,7 @@ export default function FilterSidebar({ categories, filters, onFiltersChange }: 
         </button>
 
         {priceOpen && (
-          <div className="mt-5">
+          <div className="mt-5 motion-safe:animate-fade-in" style={{ animationFillMode: "backwards" }}>
             {/* Slider track — uses a taller hit area (h-6) while keeping the
                 visual line thin via a centered inner bar. */}
             <div className="relative h-6 mb-5 flex items-center">

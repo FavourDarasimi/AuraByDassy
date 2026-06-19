@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -21,35 +23,48 @@ export default function Hero() {
           className="object-cover opacity-70"
           sizes="100vw"
         />
-        {/* Multi-stop gradient for depth + text legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80" />
-        {/* Subtle vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-5 sm:px-6 lg:px-8 max-w-3xl mx-auto flex flex-col items-center w-full">
         {/* Eyebrow pill */}
-        <span className="inline-flex items-center gap-2 py-1.5 px-4 bg-white/10 backdrop-blur-md border border-white/15 text-white text-[10px] font-bold tracking-[0.22em] uppercase mb-6 sm:mb-8 shadow-sm">
+        <span
+          className="inline-flex items-center gap-2 py-1.5 px-4 bg-white/10 backdrop-blur-md border border-white/15 text-white text-[10px] font-bold tracking-[0.22em] uppercase mb-6 sm:mb-8 shadow-sm motion-safe:animate-hero-fade-in"
+          style={{ animationDelay: "0ms" }}
+        >
           <span className="w-1.5 h-1.5 bg-white rounded-full" />
           New Arrivals · AuraByDassy
         </span>
 
         {/* Headline */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight mb-4 sm:mb-5 leading-[1.03]">
+        <h1
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight mb-4 sm:mb-5 leading-[1.03] motion-safe:animate-hero-fade-in"
+          style={{ animationDelay: "200ms" }}
+        >
           Dress the
-          {' '}<span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
+          {' '}<span
+            className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 inline-block motion-safe:animate-hero-scale-in"
+            style={{ animationDelay: "400ms" }}
+          >
             Bold.
           </span>
         </h1>
 
         {/* Sub-copy */}
-        <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-8 sm:mb-10 max-w-lg mx-auto leading-relaxed font-light tracking-wide">
+        <p
+          className="text-sm sm:text-base md:text-lg text-gray-300 mb-8 sm:mb-10 max-w-lg mx-auto leading-relaxed font-light tracking-wide motion-safe:animate-hero-fade-in"
+          style={{ animationDelay: "600ms" }}
+        >
           Premium clothing &amp; accessories. Curated in Nigeria, delivered to your door.
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center gap-3 justify-center w-full sm:w-auto">
+        <div
+          className="flex flex-col sm:flex-row items-center gap-3 justify-center w-full sm:w-auto motion-safe:animate-hero-fade-in"
+          style={{ animationDelay: "800ms" }}
+        >
           <Link
             href="/shop"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-white text-gray-900 text-sm font-bold tracking-wide uppercase hover:bg-gray-100 active:scale-95 transition-all duration-200 shadow-[0_0_24px_rgba(255,255,255,0.18)] whitespace-nowrap"
@@ -70,7 +85,10 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce opacity-60">
+      <div
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce opacity-60 motion-safe:animate-fade-in"
+        style={{ animationDelay: "1200ms", animationFillMode: "backwards" }}
+      >
         <span className="text-white text-[9px] tracking-[0.3em] uppercase">Scroll</span>
         <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

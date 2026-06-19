@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import FilterSidebar, { FilterState } from "@/components/shop/FilterSidebar";
 import ProductCard, { Product } from "@/components/ProductCard";
+import ScrollReveal from "@/components/ScrollReveal";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { SlidersHorizontalIcon, Cancel01Icon, ChevronDownIcon, PackageSearchIcon, ChevronLeftIcon, ChevronRightIcon } from '@hugeicons/core-free-icons';
 
@@ -189,7 +190,10 @@ export default function ShopClient({ products, allCategories }: Props) {
 
         <div className="relative max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-8">
+          <nav
+            className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-8 motion-safe:animate-hero-fade-in"
+            style={{ animationDelay: "0ms" }}
+          >
             <Link href="/" className="hover:text-white transition-colors duration-200">Home</Link>
             <span className="text-gray-600">›</span>
             <span className="text-white">Shop</span>
@@ -198,22 +202,34 @@ export default function ShopClient({ products, allCategories }: Props) {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
             {/* Left: Title block */}
             <div className="max-w-xl">
-              <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">
+              <p
+                className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4 motion-safe:animate-hero-fade-in"
+                style={{ animationDelay: "200ms" }}
+              >
                 AuraByDassy — Premium Fashion
               </p>
-              <h1 className="text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5">
+              <h1
+                className="text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5 motion-safe:animate-hero-fade-in"
+                style={{ animationDelay: "400ms" }}
+              >
                 Our<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">
                   Collection
                 </span>
               </h1>
-              <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
+              <p
+                className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md motion-safe:animate-hero-fade-in"
+                style={{ animationDelay: "600ms" }}
+              >
                 Bold silhouettes. Elevated essentials. Every piece curated for the modern style-forward individual.
               </p>
             </div>
 
             {/* Right: Stats */}
-            <div className="flex items-stretch gap-2 sm:gap-4 lg:gap-6">
+            <div
+              className="flex items-stretch gap-2 sm:gap-4 lg:gap-6 motion-safe:animate-hero-fade-in"
+              style={{ animationDelay: "800ms" }}
+            >
               <div className="border border-white/10 px-3 sm:px-5 py-3 sm:py-5 flex flex-col gap-1 min-w-0">
                 <span className="text-xl sm:text-3xl font-black text-white tabular-nums">{products.length}</span>
                 <span className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-[0.15em] whitespace-nowrap">Products</span>
@@ -339,8 +355,10 @@ export default function ShopClient({ products, allCategories }: Props) {
             ) : paginatedProducts.length > 0 ? (
               <>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-6 sm:gap-x-4 sm:gap-y-8 lg:gap-x-6">
-                  {paginatedProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                  {paginatedProducts.map((product, index) => (
+                    <ScrollReveal key={product.id} direction="up" delay={index * 80} duration={600} as="div">
+                      <ProductCard product={product} />
+                    </ScrollReveal>
                   ))}
                 </div>
 

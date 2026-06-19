@@ -55,14 +55,14 @@ export default function AdminHeader() {
   return (
     <>
       {/* Desktop header — avatar only */}
-      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200 px-6 py-3 hidden lg:flex items-center justify-end">
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200 px-6 py-3 hidden lg:flex items-center justify-end motion-safe:animate-fade-in">
         <span className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs font-bold uppercase tracking-wide">
           {initials}
         </span>
       </div>
 
       {/* Mobile/tablet header — logo + avatar with dropdown */}
-      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200 px-4 py-3 flex lg:hidden items-center justify-between">
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200 px-4 py-3 flex lg:hidden items-center justify-between motion-safe:animate-fade-in">
         <Logo href="/admin" />
 
         <div className="relative" ref={dropdownRef}>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
@@ -12,7 +13,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12 mb-14">
 
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <ScrollReveal direction="up" duration={600} as="div" className="col-span-2 md:col-span-1">
             <Logo className="mb-5" />
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-[280px]">
               Redefining premium fashion &amp; accessories in Nigeria. Your style, elevated.
@@ -38,10 +39,10 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Quick Links */}
-          <div>
+          <ScrollReveal direction="up" delay={100} duration={600} as="div">
             <h3 className="text-[10px] font-bold text-gray-900 tracking-[0.22em] uppercase mb-5">
               Quick Links
             </h3>
@@ -49,8 +50,6 @@ export default function Footer() {
               {[
                 { label: "Shop", href: "/shop" },
                 { label: "Cart", href: "/cart" },
-                // { label: "About Us", href: "/about" },
-                // { label: "Contact", href: "/contact" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -62,10 +61,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </ScrollReveal>
 
           {/* Categories */}
-          <div>
+          <ScrollReveal direction="up" delay={200} duration={600} as="div">
             <h3 className="text-[10px] font-bold text-gray-900 tracking-[0.22em] uppercase mb-5">
               Categories
             </h3>
@@ -87,10 +86,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </ScrollReveal>
 
           {/* Contact */}
-          <div>
+          <ScrollReveal direction="up" delay={300} duration={600} as="div">
             <h3 className="text-[10px] font-bold text-gray-900 tracking-[0.22em] uppercase mb-5">
               Contact Us
             </h3>
@@ -109,23 +108,25 @@ export default function Footer() {
                 <span className="text-sm text-gray-500">Iwo, Osun State, Nigeria</span>
               </li>
             </ul>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-100 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-gray-400 tracking-wide">
-            © {currentYear} AuraByDassy. All rights reserved.
-          </p>
-          <div className="flex gap-6 text-xs text-gray-400">
-            <Link href="#" className="hover:text-gray-900 transition-colors duration-200">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="hover:text-gray-900 transition-colors duration-200">
-              Terms of Service
-            </Link>
+        <ScrollReveal direction="fade" delay={400} duration={600}>
+          <div className="border-t border-gray-100 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-gray-400 tracking-wide">
+              © {currentYear} AuraByDassy. All rights reserved.
+            </p>
+            <div className="flex gap-6 text-xs text-gray-400">
+              <Link href="#" className="hover:text-gray-900 transition-colors duration-200">
+                Privacy Policy
+              </Link>
+              <Link href="#" className="hover:text-gray-900 transition-colors duration-200">
+                Terms of Service
+              </Link>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </footer>
   );

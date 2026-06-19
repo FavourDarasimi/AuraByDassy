@@ -1,3 +1,5 @@
+import ScrollReveal from "@/components/ScrollReveal";
+
 export default function HowItWorks() {
   const steps = [
     {
@@ -40,41 +42,42 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="text-center mb-16 sm:mb-20">
-          <p className="text-[10px] font-bold text-gray-400 tracking-[0.25em] uppercase mb-3">
-            Simple Process
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
-            How to Order
-          </h2>
-          <div className="w-10 h-[3px] bg-gray-900 mx-auto mt-4" />
-        </div>
+        <ScrollReveal direction="up" as="div">
+          <div className="text-center mb-16 sm:mb-20">
+            <p className="text-[10px] font-bold text-gray-400 tracking-[0.25em] uppercase mb-3">
+              Simple Process
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
+              How to Order
+            </h2>
+            <div className="w-10 h-[3px] bg-gray-900 mx-auto mt-4" />
+          </div>
+        </ScrollReveal>
 
         {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-200 border border-gray-200">
-          {steps.map((step) => (
-            <div
-              key={step.id}
-              className="relative flex flex-col items-center text-center px-8 py-12 group hover:bg-gray-900 transition-colors duration-300"
-            >
-              {/* Step number */}
-              <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-gray-300 group-hover:text-gray-500 mb-6 transition-colors">
-                0{step.id}
-              </span>
+          {steps.map((step, index) => (
+            <ScrollReveal key={step.id} direction="up" delay={index * 150} duration={600} as="div">
+              <div className="relative flex flex-col items-center text-center px-8 py-12 group hover:bg-gray-900 transition-colors duration-300">
+                {/* Step number */}
+                <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-gray-300 group-hover:text-gray-500 mb-6 transition-colors">
+                  0{step.id}
+                </span>
 
-              {/* Icon container */}
-              <div className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white group-hover:bg-white group-hover:text-gray-900 mb-6 transition-all duration-300 flex-shrink-0">
-                {step.icon}
+                {/* Icon container */}
+                <div className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white group-hover:bg-white group-hover:text-gray-900 mb-6 transition-all duration-300 flex-shrink-0">
+                  {step.icon}
+                </div>
+
+                {/* Text */}
+                <h3 className="text-base font-bold text-gray-900 group-hover:text-white mb-3 tracking-tight transition-colors duration-300">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed transition-colors duration-300 max-w-[260px] px-2">
+                  {step.description}
+                </p>
               </div>
-
-              {/* Text */}
-              <h3 className="text-base font-bold text-gray-900 group-hover:text-white mb-3 tracking-tight transition-colors duration-300">
-                {step.title}
-              </h3>
-              <p className="text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed transition-colors duration-300 max-w-[260px] px-2">
-                {step.description}
-              </p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

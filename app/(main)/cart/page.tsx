@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import ScrollReveal from "@/components/ScrollReveal";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ShoppingBag01Icon, Delete02Icon, MinusSignIcon, PlusSignIcon, ArrowLeft01Icon, WhatsappIcon } from '@hugeicons/core-free-icons';
 import { useCart } from "@/lib/cart";
@@ -40,19 +41,28 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4 py-28">
-        <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-6">
+        <div
+          className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-6 motion-safe:animate-scale-in"
+        >
           <HugeiconsIcon icon={ShoppingBag01Icon} size={32} className="text-gray-300" />
         </div>
-        <h1 className="text-2xl font-black text-gray-900 tracking-tight mb-2">
+        <h1
+          className="text-2xl font-black text-gray-900 tracking-tight mb-2 motion-safe:animate-hero-fade-in"
+          style={{ animationDelay: "200ms", animationFillMode: "backwards" }}
+        >
           Your cart is empty
         </h1>
-        <p className="text-sm text-gray-400 mb-8 max-w-xs">
+        <p
+          className="text-sm text-gray-400 mb-8 max-w-xs motion-safe:animate-hero-fade-in"
+          style={{ animationDelay: "400ms", animationFillMode: "backwards" }}
+        >
           Looks like you haven&apos;t added anything yet. Browse our collection
           and find your style.
         </p>
         <Link
           href="/shop"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-xs font-bold uppercase tracking-[0.18em] hover:bg-black transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-xs font-bold uppercase tracking-[0.18em] hover:bg-black transition-colors motion-safe:animate-hero-fade-in"
+          style={{ animationDelay: "600ms", animationFillMode: "backwards" }}
         >
           <HugeiconsIcon icon={ShoppingBag01Icon} size={16} />
           Shop Now
@@ -81,7 +91,9 @@ export default function CartPage() {
 
         <div className="relative max-w-7xl xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-8">
+          <nav
+            className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-8 motion-safe:animate-hero-fade-in"
+          >
             <Link href="/" className="hover:text-white transition-colors duration-200">Home</Link>
             <span className="text-gray-600">›</span>
             <span className="text-white">Cart</span>
@@ -90,23 +102,35 @@ export default function CartPage() {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
             {/* Left: Title block */}
             <div className="max-w-xl">
-              <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">
+              <p
+                className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4 motion-safe:animate-hero-fade-in"
+                style={{ animationDelay: "200ms", animationFillMode: "backwards" }}
+              >
                 Your Selection
               </p>
-              <h1 className="text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5">
+              <h1
+                className="text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5 motion-safe:animate-hero-fade-in"
+                style={{ animationDelay: "400ms", animationFillMode: "backwards" }}
+              >
                 Shopping<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">
                   Cart
                 </span>
               </h1>
-              <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
+              <p
+                className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md motion-safe:animate-hero-fade-in"
+                style={{ animationDelay: "600ms", animationFillMode: "backwards" }}
+              >
                 {itemCount} {itemCount === 1 ? "item" : "items"} in your bag —
                 review and place your order.
               </p>
             </div>
 
             {/* Right: Continue Shopping link */}
-            <div className="flex-shrink-0">
+            <div
+              className="flex-shrink-0 motion-safe:animate-hero-fade-in"
+              style={{ animationDelay: "800ms", animationFillMode: "backwards" }}
+            >
               <Link
                 href="/shop"
                 className="inline-flex items-center gap-2 px-5 py-3 border border-white/10 text-[10px] font-bold text-gray-400 uppercase tracking-[0.18em] hover:text-white hover:border-white/30 transition-all duration-200"
@@ -125,8 +149,9 @@ export default function CartPage() {
           {/* Items list */}
           <div className="flex-1 min-w-0">
             <div className="divide-y divide-gray-100">
-              {items.map((item) => (
-                <div key={item.id} className="flex gap-4 sm:gap-5 py-5 sm:py-6">
+              {items.map((item, index) => (
+                <ScrollReveal key={item.id} direction="up" delay={index * 80} duration={500} as="div">
+                <div className="flex gap-4 sm:gap-5 py-5 sm:py-6">
                   {/* Image */}
                   <div className="relative w-20 h-24 sm:w-24 sm:h-28 bg-[#f5f5f5] flex-shrink-0 overflow-hidden">
                     {item.image_url ? (
@@ -205,12 +230,13 @@ export default function CartPage() {
                     </div>
                   </div>
                 </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
 
           {/* Summary */}
-          <div className="w-full lg:w-80 xl:w-96 flex-shrink-0">
+          <ScrollReveal direction="up" delay={400} duration={600} as="div" className="w-full lg:w-80 xl:w-96 flex-shrink-0">
             <div className="bg-[#f9f9f9] p-6 sm:p-8 lg:sticky lg:top-28">
               <h2 className="text-[10px] font-bold text-gray-400 tracking-[0.25em] uppercase mb-6">
                 Order Summary
@@ -251,7 +277,7 @@ export default function CartPage() {
                 Your cart will be cleared after sending.
               </p>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>
